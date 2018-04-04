@@ -1,0 +1,60 @@
+%{
+ 	/*Comentarios*/
+ 	int nums = 0;
+ 	int strs = 0;
+%}
+%option noyywrap
+%%
+(verdadero|falso)	{
+ 		printf ("%s es BOOL\n", yytext);
+ 		return 0;
+ 	}
+= {
+ 		printf ("%s es ASIGNACION\n", yytext);
+ 		return 0;
+ 	}
+(>|<|>=|<=) {
+ 		printf ("%s es OPERADOR\n", yytext);
+ 		return 0;
+ 	}
+igual {
+ 		printf ("%s es IGUAL\n", yytext);
+ 		return 0;
+ 	}
+diferente {
+ 		printf ("%s es DIFERENTE\n", yytext);
+ 		return 0;
+ 	}
+(\.|\;|\(|\)|\{|\}) {
+ 		printf ("%s es SIGNO\n", yytext);
+ 		return 0;
+ 	}
+/* {
+ 		printf ("%s es COMENTARIOI\n", yytext);
+ 		return 0;
+ 	}
+*/ {
+ 		printf ("%s es COMENTARIOF\n", yytext);
+ 		return 0;
+ 	}
+\\ {
+ 		printf ("%s es COMENTARIO\n", yytext);
+ 		return 0;
+ 	}
+(numero|bool|texto|car) {
+ 		printf ("%s es IDENTIFICADOR\n", yytext);
+ 		return 0;
+ 	}
+(verdadero|falso) {
+ 		printf ("%s es BOOL\n", yytext);
+ 		return 0;
+ 	}
+^[a-z]([a-z][A-Z]_\d) {
+ 		printf ("%s es NOMBRE\n", yytext);
+ 		return 0;
+ 	}
+.|\n		ECHO;
+%%
+int main (void) {
+yylex();
+}
