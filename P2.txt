@@ -1,3 +1,5 @@
+/*Segunda parte del proyecto - Análisis léxico
+  Los Girasoles - Elaborado con base en el ejemplo del profesor/*
 %{
  	/*Comentarios*/
  	int nums = 0;
