@@ -22,72 +22,72 @@ Basado en el ejemplo del laboratorio.
 NUM 	[0-9]
 %%
 
-"fin" {
+"fin" { /*1 */
 	printf ("%s es FIN DE CICLO\n", yytext);
  		return 0;
 }
 
-("si"|"sino"|"mientras"|"haga") {
+("si"|"sino"|"mientras"|"haga") { /*2 */
     printf("%s es CONDICIONAL\n", yytext);
 }
 
-"desde" {
+"desde" { /*3 */
     printf ("%s es ITERACIONI\n", yytext);
 }
 
-"hasta" {
+"hasta" { /*4 */
     printf ("%s es ITERACIONF\n", yytext);
 }
 
-"devuelva" {
+"devuelva" { /*1 */
     printf ("%s es RETORNO\n", yytext);
 }
 
-"imprima" {
+"imprima" { /*2 */
     printf ("%s es IMPRESION\n", yytext);
 }
 
-("verdadero"|"falso")	{
+("verdadero"|"falso")	{ /*3 */
  		printf ("%s es BOOL\n", yytext);
  	}
 
-= {
+= { /*4 */
  		printf ("%s es ASIGNACION\n", yytext);
  	}
 
-(>|<|>=|<=) {
+(>|<|>=|<=) { /*1 */
  		printf ("%s es OPERADOR\n", yytext);
  	}
 
- (\+|\-|\*|\/) {
+ (\+|\-|\*|\/) { /*2 */
 	 printf ("%s es OPERADOR MATEMATICO\n", yytext);
  }
 
-"igual" {
+"igual" { /*3 */
  		printf ("%s es IGUAL\n", yytext);
  	}
 
-"diferente" {
+"diferente" { /*4 */
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 
-(\.|\;|\(|\)|\{|\}) {
+(\.|\;|\(|\)|\{|\}) { /*1 */
  		printf ("%s es SIGNO\n", yytext);
  	}
 
-\/\*(.|[\n])*\*\/ {
+\/\*(.|[\n])*\*\/ { /*2 */
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 
-(\/\/(.*\n))* {
+(\/\/(.*\n))* { /* 3 */
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 
-"numero" {
+"numero" { 
  		printf ("%s es TIPO_NUM\n", yytext);
  	}
 
-"bool" {
+"bool" { 
  		printf ("%s es TIPO_BOOL\n", yytext);
  	}
 
@@ -99,19 +99,19 @@ NUM 	[0-9]
  		printf ("%s es TIPO_CAR\n", yytext);
  	}
 
-[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
+[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? { /* 4 */
  		printf ("%s es NOMBRE_VAR\n", yytext);
  	}
 
-\"(.*)\" {
+\"(.*)\" { /*1 */
  		printf ("%s es TEXT0\n", yytext);
  	}
 
--?[0-9]+ {
+-?[0-9]+ { /*2 */
  		printf ("%s es NUMERO\n", yytext);
  	}
 
-'[^']' {
+'[^']' { /*3 */
  		printf ("%s es CARACTER\n", yytext);
  	}
 
