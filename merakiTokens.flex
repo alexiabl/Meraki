@@ -82,16 +82,28 @@ NUM 	[0-9]
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 
-("numero"|"bool"|"texto"|"car") {
- 		printf ("%s es IDENTIFICADOR\n", yytext);
+"numero" {
+ 		printf ("%s es TIPO_NUM\n", yytext);
+ 	}
+
+"bool" {
+ 		printf ("%s es TIPO_BOOL\n", yytext);
+ 	}
+
+"texto" {
+ 		printf ("%s es TIPO_TEXT\n", yytext);
+ 	}
+
+"car" {
+ 		printf ("%s es TIPO_CAR\n", yytext);
  	}
 
 [a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
- 		printf ("%s es NOMBRE VARIABLE\n", yytext);
+ 		printf ("%s es NOMBRE_VAR\n", yytext);
  	}
 
 \"(.*)\" {
- 		printf ("%s es TEXTO\n", yytext);
+ 		printf ("%s es TEXT0\n", yytext);
  	}
 
 -?[0-9]+ {
