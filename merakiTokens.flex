@@ -9,6 +9,7 @@ Como ejecutar el programa:
 	   fuente de parametro.
 		Ej: ./merakiTokens.exe ejemploMeraki.txt
 
+Basado en el ejemplo del laboratorio.		
 */
 
 
