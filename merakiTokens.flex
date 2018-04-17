@@ -63,7 +63,7 @@ NUM 	[0-9]
  		printf ("%s es OPERADOR\n", yytext);
  	}
 
- (\+|\-|\*|\/) { /*2 */
+ (\+|\-|\*|\/) { /*2 POR FAVOR SEPARARLOS PARA FACILIDAD*/
 	 printf ("%s es OPERADOR MATEMATICO\n", yytext);
  }
 
@@ -75,7 +75,7 @@ NUM 	[0-9]
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 
-(\.|\;|\(|\)|\{|\}) { /*1 */
+(\.|\;|\(|\)|\{|\}) { /*1 POR FAVOR SEPARARLOS PARA FACILIDAD */
  		printf ("%s es SIGNO\n", yytext);
  	}
 
