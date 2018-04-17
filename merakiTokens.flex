@@ -27,7 +27,7 @@ NUM 	[0-9]
  		return 0;
 }
 
-("si"|"sino"|"mientras"|"haga") { /*2 */
+("si"|"sino"|"mientras"|"haga") { /*2 HACE FALTA SEPARAR ESTAS*/
     printf("%s es CONDICIONAL\n", yytext);
 }
 
