@@ -47,9 +47,13 @@ NUM 	[0-9]
     printf ("%s es IMPRESION\n", yytext);
 }
 
-("verdadero"|"falso")	{ /*3 */
- 		printf ("%s es BOOL\n", yytext);
- 	}
+"verdadero" { /*3 */
+ 		printf ("%s es VERDADERO\n", yytext);
+ }
+
+"falso"	{
+		printf ("%s es FALSO\n", yytext);
+}
 
 = { /*4 */
  		printf ("%s es ASIGNACION\n", yytext);
