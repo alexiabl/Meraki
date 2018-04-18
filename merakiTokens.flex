@@ -73,7 +73,7 @@ NUM 	[0-9]
  		printf ("%s es ASIGNACION\n", yytext);
  	}
 
-(>|<|>=|<=) { /*1 */
+(>|<|>=|<=) { /*1 separar en mayor, menor, mayor o igual, menor o igual*/
  		printf ("%s es OPERADOR\n", yytext);
  	}
 
@@ -101,7 +101,7 @@ NUM 	[0-9]
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 
-(\.|\;|\(|\)|\{|\}) { /*1 POR FAVOR SEPARARLOS PARA FACILIDAD */
+(\.|\;|\(|\)|\{|\}) { /*1 POR FAVOR SEPARARLOS PARA FACILIDAD: punto, punto y coma, parentesisi, parentesisf, llavei, llavef */
  		printf ("%s es SIGNO\n", yytext);
  	}
 
