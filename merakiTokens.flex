@@ -27,9 +27,23 @@ NUM 	[0-9]
  		return 0;
 }
 
-("si"|"sino"|"mientras"|"haga") { /*2 HACE FALTA SEPARAR ESTAS*/
-    printf("%s es CONDICIONAL\n", yytext);
+"si" { /*2*/
+    printf("%s es SI\n", yytext);
 }
+
+"sino" {
+    printf("%s es SINO\n", yytext);	
+}
+
+"mientras" {
+    printf("%s es MIENTRAS\n", yytext);	
+}
+
+
+"haga" {
+    printf("%s es HAGA\n", yytext);	
+}
+
 
 "desde" { /*3 */
     printf ("%s es ITERACIONI\n", yytext);
@@ -63,7 +77,7 @@ NUM 	[0-9]
  		printf ("%s es OPERADOR\n", yytext);
  	}
 
- (\+|\-|\*|\/) { /*2 POR FAVOR SEPARARLOS PARA FACILIDAD*/
+ (\+|\-|\*|\/) { /*2*/
 	 printf ("%s es OPERADOR MATEMATICO\n", yytext);
  }
 
