@@ -77,8 +77,20 @@ NUM 	[0-9]
  		printf ("%s es OPERADOR\n", yytext);
  	}
 
- (\+|\-|\*|\/) { /*2*/
-	 printf ("%s es OPERADOR MATEMATICO\n", yytext);
+ \+ { /*2*/
+	 printf ("%s es SUMA\n", yytext);
+ }
+ 
+ \- {
+ 	 printf ("%s es RESTA\n", yytext);
+ }
+ 
+ \* {
+ 	 printf ("%s es MULTIPLICACION\n", yytext);
+ }
+ 
+ \/ {
+ 	 printf ("%s es DIVISION\n", yytext);
  }
 
 "igual" { /*3 */
