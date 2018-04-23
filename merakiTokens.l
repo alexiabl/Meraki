@@ -190,15 +190,3 @@ NUM 	[0-9]
 .|\n		ECHO;
 
 %%
-
-int main (int argc, char* argv[]) {
-	FILE *file;
-	file = fopen(argv[1], "r");
-	if (!file) {
-      fprintf (stderr, "No se pudo abrir el archivo %s\n", argv[1]);
-      exit (1);
-  }
-  yyin = file;
-
-yylex();
-}
