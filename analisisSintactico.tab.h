@@ -45,7 +45,8 @@
      N_VAR = 261,
      NUMERO = 262,
      SUMA = 263,
-     IGUAL = 264
+     IGUAL = 264,
+     FIN = 265
    };
 #endif
 /* Tokens.  */
@@ -56,6 +57,7 @@
 #define NUMERO 262
 #define SUMA 263
 #define IGUAL 264
+#define FIN 265
 
 
 
@@ -71,9 +73,10 @@ typedef union YYSTYPE
     int entero;
     char suma;
 	char igual;
+	char *fin;
 }
 /* Line 1529 of yacc.c.  */
-#line 77 "analisisSintactico.tab.h"
+#line 80 "analisisSintactico.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

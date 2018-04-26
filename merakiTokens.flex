@@ -51,23 +51,23 @@ NUM 	[0-9]
 }
 
 
-"desde" { /*3 */
+"desde" {
     printf ("%s es ITERACIONI\n", yytext);
 }
 
-"hasta" { /*4 */
+"hasta" { 
     printf ("%s es ITERACIONF\n", yytext);
 }
 
-"devuelva" { /*1 */
+"devuelva" {
     printf ("%s es RETORNO\n", yytext);
 }
 
-"imprima" { /*2 */
+"imprima" { 
     printf ("%s es IMPRESION\n", yytext);
 }
 
-"verdadero" { /*3 */
+"verdadero" { 
  		printf ("%s es VERDADERO\n", yytext);
  }
 
@@ -75,7 +75,7 @@ NUM 	[0-9]
 		printf ("%s es FALSO\n", yytext);
 }
 
-= { /*4 */
+= { 
  		printf ("%s es ASIGNACION\n", yytext);
  	}
 

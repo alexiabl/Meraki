@@ -16,6 +16,7 @@ void yyerror(const char *s);
     int entero;
     char suma;
 	char igual;
+	char *fin;
 }
 
 %token <resta> RESTA
@@ -25,11 +26,12 @@ void yyerror(const char *s);
 %token <entero> NUMERO
 %token <suma> SUMA
 %token <igual> IGUAL
+%token <fin> FIN
 
 %%
 
 Asignacion: // por ahora lo dejo asi
- N_VAR IGUAL NUMERO { printf("Bison detecto una asignacion") } 
+ N_VAR IGUAL NUMERO FIN{ printf("Bison detecto una asignacion") } 
  ;
 
 %%

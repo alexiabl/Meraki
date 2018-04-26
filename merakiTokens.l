@@ -13,9 +13,10 @@ Basado en el ejemplo del laboratorio.
 */
 
 %{
-
+#include <iostream>
 #include "analisisSintactico.tab.h"  // to get the token types that we return
-
+using namespace std;
+#define YY_DECL extern "C" int yylex()
 %}
 
 %{
@@ -29,7 +30,7 @@ NUM 	[0-9]
 %%
 
 "fin" { /*1 */
-	printf ("%s es FIN_DE_CICLO\n", yytext);
+	printf ("%s es FIN\n", yytext);
 	return 0;
 }
 
