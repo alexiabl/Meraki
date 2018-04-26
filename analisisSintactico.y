@@ -31,7 +31,7 @@ void yyerror(const char *s);
 %%
 
 Asignacion: // por ahora lo dejo asi
- N_VAR IGUAL NUMERO FIN{ printf("Bison detecto una asignacion") } 
+ N_VAR IGUAL NUMERO FIN{ printf("Bison detecto una asignacion : %s %c %d %s\n", $1, $2, $3, $4) } 
  ;
 
 %%

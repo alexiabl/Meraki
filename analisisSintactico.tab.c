@@ -1327,7 +1327,7 @@ yyreduce:
     {
         case 2:
 #line 34 "analisisSintactico.y"
-    { printf("Bison detecto una asignacion") ;}
+    { printf("Bison detecto una asignacion : %s %c %d %s\n", (yyvsp[(1) - (4)].nombre_var), (yyvsp[(2) - (4)].igual), (yyvsp[(3) - (4)].entero), (yyvsp[(4) - (4)].fin)) ;}
     break;
 
 

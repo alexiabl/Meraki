@@ -867,8 +867,8 @@ case 1:
 YY_RULE_SETUP
 #line 32 "merakiTokens.l"
 { /*1 */
-	printf ("%s es FIN\n", yytext);
-	return 0;
+	 yylval.fin = (strdup)(yytext);
+		 return FIN;
 }
 	YY_BREAK
 case 2:
@@ -945,47 +945,49 @@ case 12:
 YY_RULE_SETUP
 #line 79 "merakiTokens.l"
 { 
- 		printf ("%s es IGUAL\n", yytext);
+ 		// printf ("%s es IGUAL\n", yytext);
+		 yylval.igual = yytext[0];
+		 return IGUAL;
  	}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 83 "merakiTokens.l"
+#line 85 "merakiTokens.l"
 { 
  		printf ("%s es MAYOR\n", yytext);
  	}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 87 "merakiTokens.l"
+#line 89 "merakiTokens.l"
 { 
  		printf ("%s es MENOR\n", yytext);
  	}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 91 "merakiTokens.l"
+#line 93 "merakiTokens.l"
 { 
  		printf ("%s es MAYOR_IGUAL\n", yytext);
  	}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 95 "merakiTokens.l"
+#line 97 "merakiTokens.l"
 { 
  		printf ("%s es MENOR_IGUAL\n", yytext);
  	}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 99 "merakiTokens.l"
+#line 101 "merakiTokens.l"
 { 
 	 printf ("%s es SUMA\n", yytext);
  }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 103 "merakiTokens.l"
+#line 105 "merakiTokens.l"
 {
  	 printf ("%s es RESTA\n", yytext);
 	  yylval.resta = atof(yytext);
@@ -994,70 +996,70 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 109 "merakiTokens.l"
+#line 111 "merakiTokens.l"
 {
  	 printf ("%s es MULTIPLICACION\n", yytext);
  }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 113 "merakiTokens.l"
+#line 115 "merakiTokens.l"
 {
  	 printf ("%s es DIVISION\n", yytext);
  }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 117 "merakiTokens.l"
+#line 119 "merakiTokens.l"
 {
  		printf ("%s es IGUAL\n", yytext);
  	}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 121 "merakiTokens.l"
+#line 123 "merakiTokens.l"
 {
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 125 "merakiTokens.l"
+#line 127 "merakiTokens.l"
 { 
  		printf ("%s es PUNTO\n", yytext);
  	}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 129 "merakiTokens.l"
+#line 131 "merakiTokens.l"
 { 
  		printf ("%s es PUNTO_COMA\n", yytext);
  	}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 133 "merakiTokens.l"
+#line 135 "merakiTokens.l"
 { 
  		printf ("%s es PARENTESISI\n", yytext);
  	}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 137 "merakiTokens.l"
+#line 139 "merakiTokens.l"
 { 
  		printf ("%s es PARENTESISF\n", yytext);
  	}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 141 "merakiTokens.l"
+#line 143 "merakiTokens.l"
 { 
  		printf ("%s es LLAVEI\n", yytext);
  	}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 145 "merakiTokens.l"
+#line 147 "merakiTokens.l"
 { 
  		printf ("%s es LLAVEF\n", yytext);
  	}
@@ -1065,7 +1067,7 @@ YY_RULE_SETUP
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 149 "merakiTokens.l"
+#line 151 "merakiTokens.l"
 {
  		printf ("%s es COMENTARIO\n", yytext);
  	}
@@ -1073,18 +1075,16 @@ YY_RULE_SETUP
 case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
-#line 153 "merakiTokens.l"
+#line 155 "merakiTokens.l"
 {
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 157 "merakiTokens.l"
+#line 159 "merakiTokens.l"
 { 
  		printf ("%s es TIPO_NUM\n", yytext);
-		 yylval.entero = atof(yytext);
-		 return NUMERO;
  	}
 	YY_BREAK
 case 32:
@@ -1112,27 +1112,32 @@ case 35:
 YY_RULE_SETUP
 #line 175 "merakiTokens.l"
 {
- 		printf ("%s es NOMBRE_VAR\n", yytext);
+ 		// printf ("%s es N_VAR\n", yytext);
+		  yylval.nombre_var = (strdup)(yytext);
+		 return N_VAR;
+
  	}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 179 "merakiTokens.l"
+#line 182 "merakiTokens.l"
 { 
  		printf ("%s es TEXT0\n", yytext);
  	}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 183 "merakiTokens.l"
+#line 186 "merakiTokens.l"
 { 
- 		printf ("%s es NUMERO\n", yytext);
+ 		// printf ("%s es NUMERO\n", yytext);
+		  yylval.entero = atoi(yytext);
+		 return NUMERO;
  	}
 	YY_BREAK
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 187 "merakiTokens.l"
+#line 192 "merakiTokens.l"
 { 
  		printf ("%s es CARACTER\n", yytext);
  	}
@@ -1140,15 +1145,15 @@ YY_RULE_SETUP
 case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
-#line 191 "merakiTokens.l"
+#line 196 "merakiTokens.l"
 ECHO;
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 193 "merakiTokens.l"
+#line 198 "merakiTokens.l"
 ECHO;
 	YY_BREAK
-#line 1152 "lex.yy.c"
+#line 1157 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2145,7 +2150,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 193 "merakiTokens.l"
+#line 198 "merakiTokens.l"
 
 
 

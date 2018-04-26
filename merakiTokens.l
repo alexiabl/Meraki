@@ -30,8 +30,8 @@ NUM 	[0-9]
 %%
 
 "fin" { /*1 */
-	printf ("%s es FIN\n", yytext);
-	return 0;
+	 yylval.fin = (strdup)(yytext);
+		 return FIN;
 }
 
 "si" { /*2*/
@@ -77,7 +77,9 @@ NUM 	[0-9]
 }
 
 = { 
- 		printf ("%s es IGUAL\n", yytext);
+ 		// printf ("%s es IGUAL\n", yytext);
+		 yylval.igual = yytext[0];
+		 return IGUAL;
  	}
 
 ">" { 
@@ -156,8 +158,6 @@ NUM 	[0-9]
 
 "numero" { 
  		printf ("%s es TIPO_NUM\n", yytext);
-		 yylval.entero = atof(yytext);
-		 return NUMERO;
  	}
 
 "bool" { 
@@ -173,7 +173,10 @@ NUM 	[0-9]
  	}
 
 [a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
- 		printf ("%s es NOMBRE_VAR\n", yytext);
+ 		// printf ("%s es N_VAR\n", yytext);
+		  yylval.nombre_var = (strdup)(yytext);
+		 return N_VAR;
+
  	}
 
 \"(.*)\" { 
@@ -181,7 +184,9 @@ NUM 	[0-9]
  	}
 
 -?[0-9]+ { 
- 		printf ("%s es NUMERO\n", yytext);
+ 		// printf ("%s es NUMERO\n", yytext);
+		  yylval.entero = atoi(yytext);
+		 return NUMERO;
  	}
 
 '[^']' { 
