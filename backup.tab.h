@@ -62,7 +62,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 11 "analisisSintactico.y"
+#line 19 "backup.y"
 {
     char resta;
     char *nombre_var;
@@ -73,7 +73,7 @@ typedef union YYSTYPE
 	char igual;
 }
 /* Line 1529 of yacc.c.  */
-#line 77 "analisisSintactico.tab.h"
+#line 77 "backup.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

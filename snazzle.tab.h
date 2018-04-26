@@ -39,41 +39,35 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     RESTA = 258,
-     MULTIPLICACION = 259,
-     DIVISION = 260,
-     N_VAR = 261,
-     NUMERO = 262,
-     SUMA = 263,
-     IGUAL = 264
+     SNAZZLE = 258,
+     TYPE = 259,
+     END = 260,
+     INT = 261,
+     FLOAT = 262,
+     STRING = 263
    };
 #endif
 /* Tokens.  */
-#define RESTA 258
-#define MULTIPLICACION 259
-#define DIVISION 260
-#define N_VAR 261
-#define NUMERO 262
-#define SUMA 263
-#define IGUAL 264
+#define SNAZZLE 258
+#define TYPE 259
+#define END 260
+#define INT 261
+#define FLOAT 262
+#define STRING 263
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 11 "analisisSintactico.y"
+#line 19 "snazzle.y"
 {
-    char resta;
-    char *nombre_var;
-    char mult;
-    char division;
-    int entero;
-    char suma;
-	char igual;
+	int ival;
+	float fval;
+	char *sval;
 }
 /* Line 1529 of yacc.c.  */
-#line 77 "analisisSintactico.tab.h"
+#line 71 "snazzle.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

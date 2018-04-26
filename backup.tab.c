@@ -88,9 +88,12 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "analisisSintactico.y"
+#line 1 "backup.y"
 
 #include <stdio.h>
+#include <iostream>
+using namespace std;
+
 // stuff from flex that bison needs to know about:
 extern "C" int yylex();
 extern "C" int yyparse();
@@ -119,7 +122,7 @@ void yyerror(const char *s);
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 11 "analisisSintactico.y"
+#line 19 "backup.y"
 {
     char resta;
     char *nombre_var;
@@ -130,7 +133,7 @@ typedef union YYSTYPE
 	char igual;
 }
 /* Line 193 of yacc.c.  */
-#line 134 "analisisSintactico.tab.c"
+#line 137 "backup.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -143,7 +146,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 147 "analisisSintactico.tab.c"
+#line 150 "backup.tab.c"
 
 #ifdef short
 # undef short
@@ -425,7 +428,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    32,    32
+       0,    42,    42
 };
 #endif
 
@@ -1322,13 +1325,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 32 "analisisSintactico.y"
+#line 42 "backup.y"
     { printf("Bison detecto una asignacion") ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1332 "analisisSintactico.tab.c"
+#line 1335 "backup.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1542,7 +1545,7 @@ yyreturn:
 }
 
 
-#line 35 "analisisSintactico.y"
+#line 45 "backup.y"
 
 
 int main(int, char**) {
@@ -1550,7 +1553,7 @@ int main(int, char**) {
 	FILE *myfile = fopen("in.analisisSintactico", "r");
 	// make sure it's valid:
 	if (!myfile) {
-		printf("No se pudo abrir el archivo");
+		cout << "I can't open a.snazzle.file!" << endl;
 		return -1;
 	}
 	// set flex to read from it instead of defaulting to STDIN:
@@ -1564,11 +1567,7 @@ int main(int, char**) {
 }
 
 void yyerror(const char *s) {
-	printf("Error de parsing");
+	cout << "EEK, parse error!  Message: " << s << endl;
+	// might as well halt now:
 	exit(-1);
 }
-
-// Comandos que estoy corriendo:
-// bison -d analisisSintactico.y
-// flex merakiTokens.l
-// g++ analisisSintactico.tab.c lex.yy.c -ll -o analisisS

@@ -943,8 +943,8 @@ YY_RULE_SETUP
 case 12:
 YY_RULE_SETUP
 #line 78 "merakiTokens.l"
-{ /*4 */
- 		printf ("%s es ASIGNACION\n", yytext);
+{ 
+ 		printf ("%s es IGUAL\n", yytext);
  	}
 	YY_BREAK
 case 13:
@@ -1008,14 +1008,14 @@ YY_RULE_SETUP
 case 21:
 YY_RULE_SETUP
 #line 116 "merakiTokens.l"
-{ /*3 */
+{
  		printf ("%s es IGUAL\n", yytext);
  	}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 120 "merakiTokens.l"
-{ /*4 */
+{
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 	YY_BREAK
@@ -1065,7 +1065,7 @@ case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
 #line 148 "merakiTokens.l"
-{ /*2 */
+{
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 	YY_BREAK
@@ -1073,7 +1073,7 @@ case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
 #line 152 "merakiTokens.l"
-{ /* 3 */
+{
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 	YY_BREAK
@@ -1110,21 +1110,21 @@ YY_RULE_SETUP
 case 35:
 YY_RULE_SETUP
 #line 174 "merakiTokens.l"
-{ /* 4 */
+{
  		printf ("%s es NOMBRE_VAR\n", yytext);
  	}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 178 "merakiTokens.l"
-{ /*1 */
+{ 
  		printf ("%s es TEXT0\n", yytext);
  	}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 182 "merakiTokens.l"
-{ /*2 */
+{ 
  		printf ("%s es NUMERO\n", yytext);
  	}
 	YY_BREAK
@@ -1132,7 +1132,7 @@ case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
 #line 186 "merakiTokens.l"
-{ /*3 */
+{ 
  		printf ("%s es CARACTER\n", yytext);
  	}
 	YY_BREAK

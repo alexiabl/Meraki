@@ -75,8 +75,8 @@ NUM 	[0-9]
 		printf ("%s es FALSO\n", yytext);
 }
 
-= { /*4 */
- 		printf ("%s es ASIGNACION\n", yytext);
+= { 
+ 		printf ("%s es IGUAL\n", yytext);
  	}
 
 ">" { 
@@ -113,11 +113,11 @@ NUM 	[0-9]
  	 printf ("%s es DIVISION\n", yytext);
  }
 
-"igual" { /*3 */
+"igual" {
  		printf ("%s es IGUAL\n", yytext);
  	}
 
-"diferente" { /*4 */
+"diferente" {
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 
@@ -145,11 +145,11 @@ NUM 	[0-9]
  		printf ("%s es LLAVEF\n", yytext);
  	}
 
-\/\*(.|[\n])*\*\/ { /*2 */
+\/\*(.|[\n])*\*\/ {
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 
-(\/\/(.*\n))* { /* 3 */
+(\/\/(.*\n))* {
  		printf ("%s es COMENTARIO\n", yytext);
  	}
 
@@ -171,19 +171,19 @@ NUM 	[0-9]
  		printf ("%s es TIPO_CAR\n", yytext);
  	}
 
-[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? { /* 4 */
+[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
  		printf ("%s es NOMBRE_VAR\n", yytext);
  	}
 
-\"(.*)\" { /*1 */
+\"(.*)\" { 
  		printf ("%s es TEXT0\n", yytext);
  	}
 
--?[0-9]+ { /*2 */
+-?[0-9]+ { 
  		printf ("%s es NUMERO\n", yytext);
  	}
 
-'[^']' { /*3 */
+'[^']' { 
  		printf ("%s es CARACTER\n", yytext);
  	}
 

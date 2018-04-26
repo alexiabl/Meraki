@@ -1,5 +1,8 @@
 %{
 #include <stdio.h>
+#include <iostream>
+using namespace std;
+
 // stuff from flex that bison needs to know about:
 extern "C" int yylex();
 extern "C" int yyparse();
@@ -8,6 +11,11 @@ extern "C" FILE *yyin;
 void yyerror(const char *s);
 %}
 
+// Bison fundamentally works by asking flex to get the next token, which it
+// returns as an object of type "yystype".  But tokens could be of any
+// arbitrary data type!  So we deal with that in Bison by defining a C union
+// holding each of the types of tokens that Flex could return, and have Bison
+// use that union instead of "int" for the definition of "yystype":
 %union {
     char resta;
     char *nombre_var;
@@ -28,6 +36,8 @@ void yyerror(const char *s);
 
 %%
 
+// the first rule defined is the highest-level rule, which in our
+// case is just the concept of a whole "snazzle file":
 Asignacion: // por ahora lo dejo asi
  N_VAR IGUAL NUMERO { printf("Bison detecto una asignacion") } 
  ;
@@ -39,7 +49,7 @@ int main(int, char**) {
 	FILE *myfile = fopen("in.analisisSintactico", "r");
 	// make sure it's valid:
 	if (!myfile) {
-		printf("No se pudo abrir el archivo");
+		cout << "I can't open a.snazzle.file!" << endl;
 		return -1;
 	}
 	// set flex to read from it instead of defaulting to STDIN:
@@ -53,11 +63,7 @@ int main(int, char**) {
 }
 
 void yyerror(const char *s) {
-	printf("Error de parsing");
+	cout << "EEK, parse error!  Message: " << s << endl;
+	// might as well halt now:
 	exit(-1);
 }
-
-// Comandos que estoy corriendo:
-// bison -d analisisSintactico.y
-// flex merakiTokens.l
-// g++ analisisSintactico.tab.c lex.yy.c -ll -o analisisS
