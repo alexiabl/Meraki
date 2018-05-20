@@ -90,7 +90,7 @@ void yyerror(const char *s);
 %token <tipo_text> TIPOTEXTO
 %token <tipo_car> TIPOCAR
 %token <texto> TEXTO
-%token <car> CAR
+%token <car> CARACTER
 
 
 %%
