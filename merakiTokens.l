@@ -101,6 +101,8 @@ NUM 	[0-9]
 
  \+ { 
 	 printf ("%s es SUMA\n", yytext);
+	 yylval.suma = atof(yytext);
+		 return SUMA;
  }
  
  \- {
