@@ -160,6 +160,8 @@ NUM 	[0-9]
 
 \. { 
  		//printf ("%s es PUNTO\n", yytext);
+		yylval.punto = yytext[0];
+		return PUNTO;
 		
  	}
 
@@ -170,19 +172,27 @@ NUM 	[0-9]
  	}
 
 \( { 
- 		//printf ("%s es PARENTESISI\n", yytext);
+ 		//printf ("%s es PI\n", yytext);
+		yylval.parentesisAbre = yytext[0];
+		return PI;
  	}
 
 \) { 
  		//printf ("%s es PARENTESISF\n", yytext);
+		yylval.parentesisCierra = yytext[0];
+		return PF;
  	}
 
 \{ { 
  		//printf ("%s es LLAVEI\n", yytext);
+		yylval.llaveAbre = yytext[0];
+		return LLAVEI;
  	}
 
 \} { 
  		//printf ("%s es LLAVEF\n", yytext);
+		yylval.llaveCierra = yytext[0];
+		return LLAVEF;
  	}
 
 \/\*(.|[\n])*\*\/ {
@@ -195,6 +205,8 @@ NUM 	[0-9]
 
 "numero" { 
  		//printf ("%s es TIPO_NUM\n", yytext);
+		yylval.tipo_num = yytext[0];
+		return TIPO_NUM;
  	}
 
 "bool" { 
