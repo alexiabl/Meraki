@@ -9,7 +9,6 @@ void yyerror(const char *s);
 %}
 
 %union {
-    char *fin;
     char *si;
     char *sino;
     char *mientras;
@@ -60,9 +59,7 @@ void yyerror(const char *s);
 %token <entero> NUMERO
 %token <suma> SUMA
 %token <igual> IGUAL
-%token <fin> FIN
 
-%token <fin> FIN_DE_CICLO
 %token <si> SI 
 %token <sino> SINO
 %token <mientras> MIENTRAS 
