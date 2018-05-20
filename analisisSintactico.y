@@ -9,14 +9,43 @@ void yyerror(const char *s);
 %}
 
 %union {
+    char *fin;
+    char *si;
+    char *sino;
+    char *mientras;
+    char *haga;
+    char *desde;
+    char *hasta;
+    char *devuelva;
+    char *imprima;
+    char *verdadero;
+    char *falso;
+    char sym_igual;
+    char sym_mayor;
+    char sym_menor;
+    char sym_mayor_igual;
+    char sym_menor_igual;
+    char suma;
     char resta;
-    char *nombre_var;
     char mult;
     char division;
+    char *igual;
+    char *diferente;
+    char punto;
+    char punto_coma;
+    char parentesisAbre;
+    char parentesisCierra;
+    char llaveAbre;
+    char llaveCierra;
+    char *comentario;
+    char *tipo_num;
+    char *tipo_bool;
+    char *tipo_text;
+    char *tipo_car;
+    char *nombre_var;
     int entero;
-    char suma;
-	char igual;
-	char *fin;
+    char *texto;
+    char car;
 }
 
 %token <resta> RESTA
