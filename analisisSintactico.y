@@ -76,6 +76,24 @@ void yyerror(const char *s);
 %token <verdadero> VERDADERO
 %token <falso> FALSO
 %token <sym_igual> SIGUAL
+%token <sym_mayor> SMAYOR
+%token <sym_menor> SMENOR
+%token <sym_mayor_igual> SMAYORIGUAL
+%token <sym_menor_igual> SMENORIGUAL
+%token <diferente> DIFERENTE
+%token <punto> PUNTO
+%token <punto_coma> PUNTOCOMA
+%token <parentesisAbre> PI
+%token <parentesisCierra> PF
+%token <llaveAbre> LLAVEI
+%token <llaveCierra> LLAVEF
+%token <comentario> COMENTARIO
+%token <tipo_num> TIPONUM
+%token <tipo_bool> TIPOBOOL
+%token <tipo_text> TIPOTEXTO
+%token <tipo_car> TIPOCAR
+%token <texto> TEXTO
+%token <car> CAR
 
 
 %%
