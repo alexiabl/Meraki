@@ -25,6 +25,7 @@ using namespace std;
  	int strs = 0;
 %}
 
+%option yylineno
 %option noyywrap
 NUM 	[0-9]
 %%
