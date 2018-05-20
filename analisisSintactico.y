@@ -18,6 +18,7 @@ void yyerror(const char *s);
     char *hasta;
     char *devuelva;
     char *imprima;
+    
     char *verdadero;
     char *falso;
     char sym_igual;
@@ -26,9 +27,11 @@ void yyerror(const char *s);
     char sym_mayor_igual;
     char sym_menor_igual;
     char suma;
+    
     char resta;
     char mult;
     char division;
+    
     char *igual;
     char *diferente;
     char punto;
@@ -42,7 +45,9 @@ void yyerror(const char *s);
     char *tipo_bool;
     char *tipo_text;
     char *tipo_car;
+    
     char *nombre_var;
+    
     int entero;
     char *texto;
     char car;
@@ -56,6 +61,22 @@ void yyerror(const char *s);
 %token <suma> SUMA
 %token <igual> IGUAL
 %token <fin> FIN
+
+%token <fin> FIN_DE_CICLO
+%token <si> SI 
+%token <sino> SINO
+%token <mientras> MIENTRAS 
+%token <haga> HAGA
+%token <desde> DESDE 
+%token <hasta> HASTA
+%token <devuelva> DEVUELVA
+%token <imprima> IMPRIMA 
+%token <si> SI 
+
+%token <verdadero> VERDADERO
+%token <falso> FALSO
+%token <sym_igual> SIGUAL
+
 
 %%
 
