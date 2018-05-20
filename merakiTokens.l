@@ -117,94 +117,115 @@ NUM 	[0-9]
  }
 
 "<=" { 
- 		printf ("%s es MENOR_IGUAL\n", yytext);
- 	}
+ 	//printf ("%s es MENOR_IGUAL\n", yytext);
+	yylval.sym_menor_igual = yytext[0];
+	return MENOR_IGUAL;	
+ }
 
  \+ { 
-	 printf ("%s es SUMA\n", yytext);
+	 //printf ("%s es SUMA\n", yytext);
 	 yylval.suma = atof(yytext);
 		 return SUMA;
  }
  
  \- {
- 	 printf ("%s es RESTA\n", yytext);
+ 	 //printf ("%s es RESTA\n", yytext);
 	  yylval.resta = atof(yytext);
 		 return RESTA;
  }
  
  \* {
- 	 printf ("%s es MULTIPLICACION\n", yytext);
+ 	 //printf ("%s es MULTIPLICACION\n", yytext);
+	 yylval.mult = atof(yytext);
+		 return MULTIPLICACION;
  }
  
  \/ {
- 	 printf ("%s es DIVISION\n", yytext);
+ 	 //printf ("%s es DIVISION\n", yytext);
+	 yylval.division = atof(yytext);
+	return DIVISION;
  }
 
 "igual" {
- 		printf ("%s es IGUAL\n", yytext);
+ 		//printf ("%s es IGUAL\n", yytext);
+		yylval.igual = yytext[0];
+		return IGUAL;
  	}
 
 "diferente" {
- 		printf ("%s es DIFERENTE\n", yytext);
- 	}
+ 		//printf ("%s es DIFERENTE\n", yytext);
+		yylval.diferente = yytext[0];
+		return DIFERENTE;
+	}
 
 \. { 
- 		printf ("%s es PUNTO\n", yytext);
+ 		//printf ("%s es PUNTO\n", yytext);
+		
  	}
 
 \; { 
- 		printf ("%s es PUNTO_COMA\n", yytext);
+ 		//printf ("%s es PUNTO_COMA\n", yytext);
+		yylval.punto_coma = yytext[0];
+		return PUNTO_COMA;
  	}
 
 \( { 
- 		printf ("%s es PARENTESISI\n", yytext);
+ 		//printf ("%s es PARENTESISI\n", yytext);
  	}
 
 \) { 
- 		printf ("%s es PARENTESISF\n", yytext);
+ 		//printf ("%s es PARENTESISF\n", yytext);
  	}
 
 \{ { 
- 		printf ("%s es LLAVEI\n", yytext);
+ 		//printf ("%s es LLAVEI\n", yytext);
  	}
 
 \} { 
- 		printf ("%s es LLAVEF\n", yytext);
+ 		//printf ("%s es LLAVEF\n", yytext);
  	}
 
 \/\*(.|[\n])*\*\/ {
- 		printf ("%s es COMENTARIO\n", yytext);
+ 		//printf ("%s es COMENTARIO\n", yytext);
  	}
 
 (\/\/(.*\n))* {
- 		printf ("%s es COMENTARIO\n", yytext);
+ 		//printf ("%s es COMENTARIO\n", yytext);
  	}
 
 "numero" { 
- 		printf ("%s es TIPO_NUM\n", yytext);
+ 		//printf ("%s es TIPO_NUM\n", yytext);
  	}
 
 "bool" { 
- 		printf ("%s es TIPO_BOOL\n", yytext);
+ 		//printf ("%s es TIPO_BOOL\n", yytext);
+		yylval.tipo_bool = yytext[0];
+		return TIPO_BOOL;
  	}
 
 "texto" {
- 		printf ("%s es TIPO_TEXT\n", yytext);
+ 		//printf ("%s es TIPO_TEXT\n", yytext);
+		yylval.tipo_text = yytext[0];
+		return TIPO_TEXT;
  	}
 
 "car" {
- 		printf ("%s es TIPO_CAR\n", yytext);
+ 		//printf ("%s es TIPO_CAR\n", yytext);
+		yylval.tipo_car = yytext[0];
+		return TIPO_CAR;
  	}
 
 [a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
  		// printf ("%s es N_VAR\n", yytext);
-		  yylval.nombre_var = (strdup)(yytext);
+		 yylval.nombre_var = (strdup)(yytext);
 		 return N_VAR;
-
  	}
 
 \"(.*)\" { 
- 		printf ("%s es TEXT0\n", yytext);
+ 		//printf ("%s es TEXTO\n", yytext);
+		yylval.texto = yytext[0];
+		return TEXTO;
+		
  	}
 
 -?[0-9]+ { 
@@ -214,7 +235,9 @@ NUM 	[0-9]
  	}
 
 '[^']' { 
- 		printf ("%s es CARACTER\n", yytext);
+ 		//printf ("%s es CARACTER\n", yytext);
+		yylval.car = yytext[0];
+		return CARACTER;
  	}
 
 .|\n		ECHO;
