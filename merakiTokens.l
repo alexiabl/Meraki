@@ -30,70 +30,91 @@ using namespace std;
 NUM 	[0-9]
 %%
 
-"fin" { /*1 */
-	 yylval.fin = (strdup)(yytext);
-		 return FIN;
-}
-
 "si" { /*2*/
-    printf("%s es SI\n", yytext);
+    //printf("%s es SI\n", yytext);
+   	yylval.si = yytext[0];
+	return SI;
 }
 
 "sino" {
-    printf("%s es SINO\n", yytext);	
+    //printf("%s es SINO\n", yytext);	
+    	yylval.sino = yytext[0];
+	return SINO;
 }
 
 "mientras" {
-    printf("%s es MIENTRAS\n", yytext);	
+    //printf("%s es MIENTRAS\n", yytext);
+    	yylval.mientras = yytext[0];
+	return MIENTRAS;
 }
 
 
 "haga" {
-    printf("%s es HAGA\n", yytext);	
+    //printf("%s es HAGA\n", yytext);
+      	yylval.haga = yytext[0];
+	return HAGA;  
 }
 
 
 "desde" { /*3 */
-    printf ("%s es ITERACIONI\n", yytext);
+    //printf ("%s es ITERACIONI\n", yytext);
+    	yylval.desde = yytext[0];
+	return MIENTRAS;    
 }
 
 "hasta" { /*4 */
-    printf ("%s es ITERACIONF\n", yytext);
+    //printf ("%s es ITERACIONF\n", yytext);
+        yylval.hasta = yytext[0];
+	return HASTA;
 }
 
 "devuelva" { /*1 */
-    printf ("%s es RETORNO\n", yytext);
+    //printf ("%s es RETORNO\n", yytext);
+    	yylval.devuelva = yytext[0];
+	return DEVUELVA;
 }
 
 "imprima" { /*2 */
-    printf ("%s es IMPRESION\n", yytext);
+    //printf ("%s es IMPRESION\n", yytext);
+    	yylval.imprima = yytext[0];
+	return IMPRIMA;
 }
 
 "verdadero" { /*3 */
- 		printf ("%s es VERDADERO\n", yytext);
+ 	//printf ("%s es VERDADERO\n", yytext);
+	yylval.verdadero = yytext[0];
+	return VERDADERO;
  }
 
 "falso"	{
-		printf ("%s es FALSO\n", yytext);
+	//printf ("%s es FALSO\n", yytext);
+	yylval.falso = yytext[0];
+	return FALSO;
 }
 
 = { 
- 		// printf ("%s es IGUAL\n", yytext);
-		 yylval.igual = yytext[0];
-		 return IGUAL;
- 	}
+ 	// printf ("%s es IGUAL\n", yytext);
+	yylval.sym_igual = yytext[0];
+	return IGUAL;
+ }
 
 ">" { 
- 		printf ("%s es MAYOR\n", yytext);
- 	}
+ 	//printf ("%s es MAYOR\n", yytext);
+	yylval.sym_mayor = yytext[0];
+	return MAYOR;
+ }
 
 "<" { 
- 		printf ("%s es MENOR\n", yytext);
- 	}
+ 	//printf ("%s es MENOR\n", yytext);
+	yylval.sym_menor = yytext[0];
+	return MENOR;
+ }
 
 ">=" { 
- 		printf ("%s es MAYOR_IGUAL\n", yytext);
- 	}
+ 	//printf ("%s es MAYOR_IGUAL\n", yytext);
+	yylval.sym_mayor_igual = yytext[0];
+	return MAYOR_IGUAL;
+ }
 
 "<=" { 
  		printf ("%s es MENOR_IGUAL\n", yytext);
