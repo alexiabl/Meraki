@@ -12,19 +12,25 @@ Como ejecutar el programa:
 Basado en el ejemplo del laboratorio.		
 */
 
+%{
+
+#include "backup.tab.h"  // to get the token types that we return
+
+%}
 
 %{
  	/*Comentarios*/
  	int nums = 0;
  	int strs = 0;
 %}
+
 %option noyywrap
 NUM 	[0-9]
 %%
 
 "fin" { /*1 */
-	printf ("%s es FIN DE CICLO\n", yytext);
- 		return 0;
+	printf ("%s es FIN_DE_CICLO\n", yytext);
+	return 0;
 }
 
 "si" { /*2*/
@@ -45,23 +51,23 @@ NUM 	[0-9]
 }
 
 
-"desde" { /*3 */
+"desde" {
     printf ("%s es ITERACIONI\n", yytext);
 }
 
-"hasta" { /*4 */
+"hasta" { 
     printf ("%s es ITERACIONF\n", yytext);
 }
 
-"devuelva" { /*1 */
+"devuelva" {
     printf ("%s es RETORNO\n", yytext);
 }
 
-"imprima" { /*2 */
+"imprima" { 
     printf ("%s es IMPRESION\n", yytext);
 }
 
-"verdadero" { /*3 */
+"verdadero" { 
  		printf ("%s es VERDADERO\n", yytext);
  }
 
@@ -69,20 +75,34 @@ NUM 	[0-9]
 		printf ("%s es FALSO\n", yytext);
 }
 
-= { /*4 */
+= { 
  		printf ("%s es ASIGNACION\n", yytext);
  	}
 
-(>|<|>=|<=) { /*1 separar en mayor, menor, mayor o igual, menor o igual*/
- 		printf ("%s es OPERADOR\n", yytext);
+">" { 
+ 		printf ("%s es MAYOR\n", yytext);
  	}
 
- \+ { /*2*/
+"<" { 
+ 		printf ("%s es MENOR\n", yytext);
+ 	}
+
+">=" { 
+ 		printf ("%s es MAYOR_IGUAL\n", yytext);
+ 	}
+
+"<=" { 
+ 		printf ("%s es MENOR_IGUAL\n", yytext);
+ 	}
+
+ \+ { 
 	 printf ("%s es SUMA\n", yytext);
  }
  
  \- {
  	 printf ("%s es RESTA\n", yytext);
+	  yylval.resta = atof(yytext);
+		 return RESTA;
  }
  
  \* {
@@ -101,8 +121,28 @@ NUM 	[0-9]
  		printf ("%s es DIFERENTE\n", yytext);
  	}
 
-(\.|\;|\(|\)|\{|\}) { /*1 POR FAVOR SEPARARLOS PARA FACILIDAD: punto, punto y coma, parentesisi, parentesisf, llavei, llavef */
- 		printf ("%s es SIGNO\n", yytext);
+\. { 
+ 		printf ("%s es PUNTO\n", yytext);
+ 	}
+
+\; { 
+ 		printf ("%s es PUNTO_COMA\n", yytext);
+ 	}
+
+\( { 
+ 		printf ("%s es PARENTESISI\n", yytext);
+ 	}
+
+\) { 
+ 		printf ("%s es PARENTESISF\n", yytext);
+ 	}
+
+\{ { 
+ 		printf ("%s es LLAVEI\n", yytext);
+ 	}
+
+\} { 
+ 		printf ("%s es LLAVEF\n", yytext);
  	}
 
 \/\*(.|[\n])*\*\/ { /*2 */
@@ -115,6 +155,8 @@ NUM 	[0-9]
 
 "numero" { 
  		printf ("%s es TIPO_NUM\n", yytext);
+		 yylval.entero = atof(yytext);
+		 return NUMERO;
  	}
 
 "bool" { 
