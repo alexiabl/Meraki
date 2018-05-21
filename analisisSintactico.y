@@ -10,16 +10,16 @@ void yyerror(const char *s);
 
 %union {
     char si;
-    char *sino;
-    char *mientras;
-    char *haga;
-    char *desde;
-    char *hasta;
-    char *devuelva;
-    char *imprima;
+    char sino;
+    char mientras;
+    char haga;
+    char desde;
+    char hasta;
+    char devuelva;
+    char imprima;
     
-    char *verdadero;
-    char *falso;
+    char verdadero;
+    char falso;
     char sym_igual;
     char sym_mayor;
     char sym_menor;
@@ -31,8 +31,8 @@ void yyerror(const char *s);
     char mult;
     char division;
     
-    char *igual;
-    char *diferente;
+    char igual;
+    char diferente;
     char punto;
     char punto_coma;
     char parentesisAbre;
@@ -40,16 +40,19 @@ void yyerror(const char *s);
     char llaveAbre;
     char llaveCierra;
     char *comentario;
-    char *tipo_num;
-    char *tipo_bool;
-    char *tipo_text;
-    char *tipo_car;
+    char tipo_num;
+    char tipo_bool;
+    char tipo_text;
+    char tipo_car;
     
-    char *nombre_var;
+    char nombre_var;
     
     int entero;
-    char *texto;
+    char texto;
     char car;
+
+    char y;
+    char main;
 }
 
 %token <resta> RESTA
@@ -90,145 +93,147 @@ void yyerror(const char *s);
 %token <tipo_car> TIPOCAR
 %token <texto> TEXTO
 %token <car> CARACTER
-
+%token <y> Y
+%token <main> MAIN
 
 %%
-
-Meraki:
- Bloque Main {}
+Meraki: Bloque Main
  ;
 
 Bloque: Bloquecodigo 
- |Funcion {}
+ |Funcion 
  ;
 
-Bloquecodigo: 
- |Indicacion Bloquecodigo {}
+Bloquecodigo:  /* empty */
+ |Indicacion Bloquecodigo
  ;
 
-Indicacion: 
- |Si
- |Mientras
- |Haga
- |Imprimir 
- |Devuelva
- |Declaracion
- |Asignacion
- |Iteracion {}
+Main:
+ MAIN PI Param PF LLAVEI Bloquemain LLAVEF
  ;
 
-Funcion: 
- Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF{}
-  ;
-
-Param:
- |Tipo N_VAR Param{}
-  ;
-
-Si:
- SI Condicion LLAVEI Bloquecodigo LLAVEF{}
+Bloquemain: 
+ Bloquecodigo N_VAR PI Param PF PUNTOCOMA 
  ;
 
-Mientras: 
- MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF{}
- ;
 
-Haga:
- HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF{}
- ;
-
-Imprimir:
- IMPRIMA PI Tipovarios PF PUNTOCOMA{}
- ;
-
-Devuelva: 
- DEVUELVA Tipovarios PUNTOCOMA{}
- ;
-
-Asignacion:
- Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA{}
- ;
-
-Tipoasignacion: Tipo
- |Operacionmate{}
- ;
-
-Operacionmate: 
- Tiponumvar Operador{}
- ;
-
-Operador: Simboperacion Tiponumvar Operador 
- |Simboperacion Tiponumvar{}
- ;
-
-Simboperacion: SUMA
- |RESTA
- |MULTIPLICACION
- |DIVISION{}
- ;
-
-Declaracion: Tipo N_VAR PUNTOCOMA{}
- ;
-
-Iteracion:
- DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF{}
- ;
-
-Operadorit: Sumait
- |Restait{}
- ;
-
-Sumait : SUMA SUMA{}
- ;
-
-Restait : RESTA RESTA{}
- ;
-
-Tipo: TIPONUM
- | TIPOBOOL
- | TIPOCAR
- | TIPOTEXTO{}
- ;
-
-Condicion:
-Tipovarios Comparacion {}
+Indicacion: Si
+|Mientras
+|Haga
+|Imprimir 
+|Devuelva
+|Declaracion
+|Asignacion
+|Iteracion 
 ;
 
-Comparacion: 
- Simbolocomparacion Tipovarios Oplog Condicion 
- |Simbolocomparacion Tipovarios{}
+Funcion: 
+Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF 
+;
+
+Param: /* empty */
+|Tipo N_VAR Param 
+;
+
+Si:
+SI Condicion LLAVEI Bloquecodigo LLAVEF 
+;
+
+Mientras: 
+MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF 
+;
+
+Haga:
+HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF 
+;
+
+Imprimir:
+IMPRIMA PI Tipovarios PF PUNTOCOMA 
+;
+
+Devuelva: 
+DEVUELVA Tipovarios PUNTOCOMA 
+;
+
+Asignacion:
+Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA 
+;
+
+Tipoasignacion: Tipo
+|Operacionmate 
+;
+
+Operacionmate: 
+Tiponumvar Operador 
+;
+
+Operador: Simboperacion Tiponumvar Operador 
+|Simboperacion Tiponumvar 
+;
+
+Simboperacion: SUMA
+|RESTA
+|MULTIPLICACION
+|DIVISION 
+;
+
+Declaracion: Tipo N_VAR PUNTOCOMA 
+;
+
+Iteracion:
+DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF 
+;
+
+Operadorit: Sumait
+|Restait 
+;
+
+Sumait: 
+SUMA SUMA 
+;
+
+Restait: 
+RESTA RESTA
+;
+
+Tipo: TIPONUM
+|TIPOBOOL
+|TIPOCAR
+|TIPOTEXTO 
+;
+
+Condicion:
+Tipovarios Comparacion 
+;
+
+Comparacion: Simbolocomparacion Tipovarios Oplog Condicion 
+|Simbolocomparacion Tipovarios 
+;
 
 Tipovarios: CARACTER
- | NUMERO
- | TEXTO
- | VERDADERO
- | FALSO
- | N_VAR{}
+|NUMERO
+|TEXTO
+|VERDADERO
+|FALSO
+|N_VAR 
 ;
 
 Oplog: Y
- | O{}
- ;
+;
 
 Tiponumvar: NUMERO
- |N_VAR{}
- ;
+|N_VAR 
+;
 
 Simbolocomparacion: SMAYOR
- |SMENOR
- |SMAYORIGUAL
- |SMENORIGUAL
- |DIFERENTE
- |SIGUAL{}
- ;
- 
-
-Asignacion: // por ahora lo dejo asi
- N_VAR IGUAL NUMERO { printf("Bison detecto una asignacion : %s %c %d %s\n", $1, $2, $3) } 
- ;
+|SMENOR
+|SMAYORIGUAL
+|SMENORIGUAL
+|DIFERENTE
+|SIGUAL 
+;
 
 %%
-
 int main(int, char**) {
 	// open a file handle to a particular file:
 	FILE *myfile = fopen("in.analisisSintactico", "r");
@@ -239,19 +244,16 @@ int main(int, char**) {
 	}
 	// set flex to read from it instead of defaulting to STDIN:
 	yyin = myfile;
-
 	// parse through the input until there is no more:
 	do {
 		yyparse();
 	} while (!feof(yyin));
 	
 }
-
 void yyerror(const char *s) {
 	printf("Error de parsing");
 	exit(-1);
 }
-
 // Comandos que estoy corriendo:
 // bison -d analisisSintactico.y
 // flex merakiTokens.l
