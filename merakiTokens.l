@@ -157,6 +157,15 @@ NUM 	[0-9]
 		yylval.diferente = yytext[0];
 		return DIFERENTE;
 	}
+"y" {
+	yylval.y = atof(yytext);
+	return Y;
+}
+
+"o"{
+	yylval.o = atof(yytext);
+	return O;
+}
 
 \. { 
  		//printf ("%s es PUNTO\n", yytext);
@@ -252,6 +261,12 @@ NUM 	[0-9]
 		return CARACTER;
  	}
 
+"main" {
+	yylval.main = yytext[0];
+	return MAIN;
+}
+
 .|\n		ECHO;
 
 %%
+

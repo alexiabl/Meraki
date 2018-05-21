@@ -9,7 +9,7 @@ void yyerror(const char *s);
 %}
 
 %union {
-    char *si;
+    char si;
     char *sino;
     char *mientras;
     char *haga;
@@ -50,6 +50,10 @@ void yyerror(const char *s);
     int entero;
     char *texto;
     char car;
+
+    char y;
+    char o;
+    char *main;
 }
 
 %token <resta> RESTA
@@ -68,7 +72,6 @@ void yyerror(const char *s);
 %token <hasta> HASTA
 %token <devuelva> DEVUELVA
 %token <imprima> IMPRIMA 
-%token <si> SI 
 
 %token <verdadero> VERDADERO
 %token <falso> FALSO
@@ -91,12 +94,145 @@ void yyerror(const char *s);
 %token <tipo_car> TIPOCAR
 %token <texto> TEXTO
 %token <car> CARACTER
-
+%token <y> Y
+%token <o> O
+%token <main> MAIN
 
 %%
 
+Meraki:
+ Bloque MAIN {}
+ ;
+
+Bloque: Bloquecodigo 
+ |Funcion {}
+ ;
+
+Bloquecodigo: 
+ |Indicacion Bloquecodigo {}
+ ;
+
+Indicacion: 
+ |Si
+ |Mientras
+ |Haga
+ |Imprimir 
+ |Devuelva
+ |Declaracion
+ |Asignacion
+ |Iteracion {}
+ ;
+
+Funcion: 
+ Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {}
+  ;
+
+Param:
+ |Tipo N_VAR Param {}
+  ;
+
+Si:
+ SI Condicion LLAVEI Bloquecodigo LLAVEF {}
+ ;
+
+Mientras: 
+ MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {}
+ ;
+
+Haga:
+ HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {}
+ ;
+
+Imprimir:
+ IMPRIMA PI Tipovarios PF PUNTOCOMA {}
+ ;
+
+Devuelva: 
+ DEVUELVA Tipovarios PUNTOCOMA {}
+ ;
+
+Asignacion:
+ Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {}
+ ;
+
+Tipoasignacion: Tipo
+ |Operacionmate {}
+ ;
+
+Operacionmate: 
+ Tiponumvar Operador {}
+ ;
+
+Operador: Simboperacion Tiponumvar Operador 
+ |Simboperacion Tiponumvar {}
+ ;
+
+Simboperacion: SUMA
+ |RESTA
+ |MULTIPLICACION
+ |DIVISION {}
+ ;
+
+Declaracion: Tipo N_VAR PUNTOCOMA {}
+ ;
+
+Iteracion:
+ DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF {}
+ ;
+
+Operadorit: Sumait
+ |Restait {}
+ ;
+
+Sumait: 
+SUMA SUMA {}
+ ;
+
+Restait: 
+RESTA RESTA {}
+ ;
+
+Tipo: TIPONUM
+ | TIPOBOOL
+ | TIPOCAR
+ | TIPOTEXTO {}
+ ;
+
+Condicion:
+Tipovarios Comparacion {}
+;
+
+Comparacion: 
+ Simbolocomparacion Tipovarios Oplog Condicion 
+ |Simbolocomparacion Tipovarios {}
+
+Tipovarios: CARACTER
+ | NUMERO
+ | TEXTO
+ | VERDADERO
+ | FALSO
+ | N_VAR {}
+;
+
+Oplog: Y
+ | O {}
+ ;
+
+Tiponumvar: NUMERO
+ | N_VAR {}
+ ;
+
+Simbolocomparacion: SMAYOR
+ |SMENOR
+ |SMAYORIGUAL
+ |SMENORIGUAL
+ |DIFERENTE
+ |SIGUAL {}
+ ;
+ 
+
 Asignacion: // por ahora lo dejo asi
- N_VAR IGUAL NUMERO FIN{ printf("Bison detecto una asignacion : %s %c %d %s\n", $1, $2, $3, $4) } 
+ N_VAR IGUAL NUMERO { printf("Bison detecto una asignacion : %s %c %d %s\n", $1, $2, $3) } 
  ;
 
 %%
