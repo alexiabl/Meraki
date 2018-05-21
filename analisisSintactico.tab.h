@@ -76,8 +76,7 @@
      TEXTO = 292,
      CARACTER = 293,
      Y = 294,
-     O = 295,
-     MAIN = 296
+     MAIN = 295
    };
 #endif
 
@@ -91,16 +90,16 @@ typedef union YYSTYPE
 #line 11 "analisisSintactico.y"
 
     char si;
-    char *sino;
-    char *mientras;
-    char *haga;
-    char *desde;
-    char *hasta;
-    char *devuelva;
-    char *imprima;
+    char sino;
+    char mientras;
+    char haga;
+    char desde;
+    char hasta;
+    char devuelva;
+    char imprima;
     
-    char *verdadero;
-    char *falso;
+    char verdadero;
+    char falso;
     char sym_igual;
     char sym_mayor;
     char sym_menor;
@@ -112,8 +111,8 @@ typedef union YYSTYPE
     char mult;
     char division;
     
-    char *igual;
-    char *diferente;
+    char igual;
+    char diferente;
     char punto;
     char punto_coma;
     char parentesisAbre;
@@ -121,25 +120,24 @@ typedef union YYSTYPE
     char llaveAbre;
     char llaveCierra;
     char *comentario;
-    char *tipo_num;
-    char *tipo_bool;
-    char *tipo_text;
-    char *tipo_car;
+    char tipo_num;
+    char tipo_bool;
+    char tipo_text;
+    char tipo_car;
     
-    char *nombre_var;
+    char nombre_var;
     
     int entero;
-    char *texto;
+    char texto;
     char car;
 
     char y;
-    char o;
-    char *main;
+    char main;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 143 "analisisSintactico.tab.h"
+#line 141 "analisisSintactico.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

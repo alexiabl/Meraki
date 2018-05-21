@@ -95,31 +95,31 @@ NUM 	[0-9]
 = { 
  	// printf ("%s es IGUAL\n", yytext);
 	yylval.sym_igual = yytext[0];
-	return IGUAL;
+	return SIGUAL;
  }
 
 ">" { 
  	//printf ("%s es MAYOR\n", yytext);
 	yylval.sym_mayor = yytext[0];
-	return MAYOR;
+	return SMAYOR;
  }
 
 "<" { 
  	//printf ("%s es MENOR\n", yytext);
 	yylval.sym_menor = yytext[0];
-	return MENOR;
+	return SMENOR;
  }
 
 ">=" { 
  	//printf ("%s es MAYOR_IGUAL\n", yytext);
 	yylval.sym_mayor_igual = yytext[0];
-	return MAYOR_IGUAL;
+	return SMAYORIGUAL;
  }
 
 "<=" { 
  	//printf ("%s es MENOR_IGUAL\n", yytext);
 	yylval.sym_menor_igual = yytext[0];
-	return MENOR_IGUAL;	
+	return SMENORIGUAL;	
  }
 
  \+ { 
@@ -157,14 +157,10 @@ NUM 	[0-9]
 		yylval.diferente = yytext[0];
 		return DIFERENTE;
 	}
-"y" {
-	yylval.y = atof(yytext);
-	return Y;
-}
 
-"o"{
-	yylval.o = atof(yytext);
-	return O;
+"y" {
+	yylval.y = yytext[0];
+	return Y;
 }
 
 \. { 
@@ -177,7 +173,7 @@ NUM 	[0-9]
 \; { 
  		//printf ("%s es PUNTO_COMA\n", yytext);
 		yylval.punto_coma = yytext[0];
-		return PUNTO_COMA;
+		return PUNTOCOMA;
  	}
 
 \( { 
@@ -213,32 +209,32 @@ NUM 	[0-9]
  	}
 
 "numero" { 
- 		//printf ("%s es TIPO_NUM\n", yytext);
+ 		//printf ("%s es TIPONUM\n", yytext);
 		yylval.tipo_num = yytext[0];
-		return TIPO_NUM;
+		return TIPONUM;
  	}
 
 "bool" { 
- 		//printf ("%s es TIPO_BOOL\n", yytext);
+ 		//printf ("%s es TIPOBOOL\n", yytext);
 		yylval.tipo_bool = yytext[0];
-		return TIPO_BOOL;
+		return TIPOBOOL;
  	}
 
 "texto" {
- 		//printf ("%s es TIPO_TEXT\n", yytext);
+ 		//printf ("%s es TIPOTEXT\n", yytext);
 		yylval.tipo_text = yytext[0];
-		return TIPO_TEXT;
+		return TIPOTEXTO;
  	}
 
 "car" {
  		//printf ("%s es TIPO_CAR\n", yytext);
 		yylval.tipo_car = yytext[0];
-		return TIPO_CAR;
+		return TIPOCAR;
  	}
 
 [a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
  		// printf ("%s es N_VAR\n", yytext);
-		 yylval.nombre_var = (strdup)(yytext);
+		 yylval.nombre_var = yytext[0];
 		 return N_VAR;
  	}
 
