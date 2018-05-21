@@ -231,10 +231,6 @@ Simbolocomparacion: SMAYOR
  ;
  
 
-Asignacion: // por ahora lo dejo asi
- N_VAR IGUAL NUMERO { printf("Bison detecto una asignacion : %s %c %d %s\n", $1, $2, $3) } 
- ;
-
 %%
 
 int main(int, char**) {
