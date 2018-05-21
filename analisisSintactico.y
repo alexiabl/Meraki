@@ -99,144 +99,144 @@ void yyerror(const char *s);
 %token <main> MAIN
 
 %%
-
-Meraki:
- Bloque MAIN {}
+Meraki: Bloque Main
  ;
 
 Bloque: Bloquecodigo 
- |Funcion {}
+ |Funcion 
  ;
 
-Bloquecodigo: 
- |Indicacion Bloquecodigo {}
+Bloquecodigo:  /* empty */
+ |Indicacion Bloquecodigo
  ;
 
-Indicacion: 
- |Si
- |Mientras
- |Haga
- |Imprimir 
- |Devuelva
- |Declaracion
- |Asignacion
- |Iteracion {}
+Main:
+ MAIN PI Param PF LLAVEI Bloquemain LLAVEF
  ;
 
-Funcion: 
- Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {}
-  ;
-
-Param:
- |Tipo N_VAR Param {}
-  ;
-
-Si:
- SI Condicion LLAVEI Bloquecodigo LLAVEF {}
+Bloquemain: 
+ Bloquecodigo N_VAR PI Param PF PUNTOCOMA 
  ;
 
-Mientras: 
- MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {}
- ;
 
-Haga:
- HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {}
- ;
-
-Imprimir:
- IMPRIMA PI Tipovarios PF PUNTOCOMA {}
- ;
-
-Devuelva: 
- DEVUELVA Tipovarios PUNTOCOMA {}
- ;
-
-Asignacion:
- Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {}
- ;
-
-Tipoasignacion: Tipo
- |Operacionmate {}
- ;
-
-Operacionmate: 
- Tiponumvar Operador {}
- ;
-
-Operador: Simboperacion Tiponumvar Operador 
- |Simboperacion Tiponumvar {}
- ;
-
-Simboperacion: SUMA
- |RESTA
- |MULTIPLICACION
- |DIVISION {}
- ;
-
-Declaracion: Tipo N_VAR PUNTOCOMA {}
- ;
-
-Iteracion:
- DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF {}
- ;
-
-Operadorit: Sumait
- |Restait {}
- ;
-
-Sumait: 
-SUMA SUMA {}
- ;
-
-Restait: 
-RESTA RESTA {}
- ;
-
-Tipo: TIPONUM
- | TIPOBOOL
- | TIPOCAR
- | TIPOTEXTO {}
- ;
-
-Condicion:
-Tipovarios Comparacion {}
+Indicacion: Si
+|Mientras
+|Haga
+|Imprimir 
+|Devuelva
+|Declaracion
+|Asignacion
+|Iteracion 
 ;
 
-Comparacion: 
- Simbolocomparacion Tipovarios Oplog Condicion 
- |Simbolocomparacion Tipovarios {}
+Funcion: 
+Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF 
+;
+
+Param: /* empty */
+|Tipo N_VAR Param 
+;
+
+Si:
+SI Condicion LLAVEI Bloquecodigo LLAVEF 
+;
+
+Mientras: 
+MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF 
+;
+
+Haga:
+HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF 
+;
+
+Imprimir:
+IMPRIMA PI Tipovarios PF PUNTOCOMA 
+;
+
+Devuelva: 
+DEVUELVA Tipovarios PUNTOCOMA 
+;
+
+Asignacion:
+Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA 
+;
+
+Tipoasignacion: Tipo
+|Operacionmate 
+;
+
+Operacionmate: 
+Tiponumvar Operador 
+;
+
+Operador: Simboperacion Tiponumvar Operador 
+|Simboperacion Tiponumvar 
+;
+
+Simboperacion: SUMA
+|RESTA
+|MULTIPLICACION
+|DIVISION 
+;
+
+Declaracion: Tipo N_VAR PUNTOCOMA 
+;
+
+Iteracion:
+DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF 
+;
+
+Operadorit: Sumait
+|Restait 
+;
+
+Sumait: 
+SUMA SUMA 
+;
+
+Restait: 
+RESTA RESTA
+;
+
+Tipo: TIPONUM
+|TIPOBOOL
+|TIPOCAR
+|TIPOTEXTO 
+;
+
+Condicion:
+Tipovarios Comparacion 
+;
+
+Comparacion: Simbolocomparacion Tipovarios Oplog Condicion 
+|Simbolocomparacion Tipovarios 
+;
 
 Tipovarios: CARACTER
- | NUMERO
- | TEXTO
- | VERDADERO
- | FALSO
- | N_VAR {}
+|NUMERO
+|TEXTO
+|VERDADERO
+|FALSO
+|N_VAR 
 ;
 
 Oplog: Y
- | O {}
- ;
+|O 
+;
 
 Tiponumvar: NUMERO
- | N_VAR {}
- ;
+|N_VAR 
+;
 
 Simbolocomparacion: SMAYOR
- |SMENOR
- |SMAYORIGUAL
- |SMENORIGUAL
- |DIFERENTE
- |SIGUAL {}
- ;
- 
-
-Asignacion: // por ahora lo dejo asi
- N_VAR IGUAL NUMERO { printf("Bison detecto una asignacion : %s %c %d %s\n", $1, $2, $3) } 
- ;
+|SMENOR
+|SMAYORIGUAL
+|SMENORIGUAL
+|DIFERENTE
+|SIGUAL 
+;
 
 %%
-
 int main(int, char**) {
 	// open a file handle to a particular file:
 	FILE *myfile = fopen("in.analisisSintactico", "r");
@@ -247,19 +247,16 @@ int main(int, char**) {
 	}
 	// set flex to read from it instead of defaulting to STDIN:
 	yyin = myfile;
-
 	// parse through the input until there is no more:
 	do {
 		yyparse();
 	} while (!feof(yyin));
 	
 }
-
 void yyerror(const char *s) {
 	printf("Error de parsing");
 	exit(-1);
 }
-
 // Comandos que estoy corriendo:
 // bison -d analisisSintactico.y
 // flex merakiTokens.l
