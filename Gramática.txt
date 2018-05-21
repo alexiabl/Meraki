@@ -1,10 +1,13 @@
 M' -> M
 M -> BLOQUE MAIN
-BLOQUE -> INDICACION BLOQUE | 
+BLOQUE ->  BLOQUECODIGO | FUNCION
+BLOQUECODIGO -> INDICACION BLOQUECODIGO | 
 INDICACION -> SI | MIENTRAS | HAGA | IMPRIMIR | DEVUELVA | DECLARACION | ASIGNACION | ITERACION | 
-SI -> si CONDICION { BLOQUE }
-MIENTRAS -> mientras  CONDICION  { BLOQUE }
-HAGA -> haga { BLOQUE } mientras ( CONDICION )
+FUNCION -> TIPO n_Var ( PARAM ) { BLOQUECODIGO }\\
+PARAM -> TIPO n_var PARAM | 
+SI -> si CONDICION { BLOQUECOD }
+MIENTRAS -> mientras  CONDICION  { BLOQUECOD }
+HAGA -> haga { BLOQUECOD } mientras ( CONDICION )
 IMPRIMIR -> imprima ( TIPOVARIOS ) delimitador
 DEVUELVA -> devuelva TIPOVARIOS delimitador
 ASIGNACION -> TIPO nombrevar asignacion TIPOASIG delimitador
@@ -16,10 +19,15 @@ OPERADORIT -> SUMAIT | RESTAIT
 SUMAIT -> suma suma
 RESTAIT -> resta resta 
 TIPO -> tipocar | tiponum | tipobool | tipotexto 
-CONDICION -> (CONDICION) CONDCICION1
+CONDICION -> (CONDICION) | CONDCICION1 
 CONDICION1 -> CONDICION OPLOG | TIPOVARIOS COMPARACION TIPOVARIOS 
 TIPOVARIOS -> car | numero | bool | texto | nomvar
 OPLOG -> y | o 
 TIPONUMVAR -> numero | nombrevar
 OPERADOR -> suma | resta | mult | divi
+COMPARACION -> Todos símbolos 
 MAIN -> meraki { BLOQUE }
+
+
+
+
