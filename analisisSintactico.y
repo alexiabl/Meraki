@@ -97,26 +97,25 @@ void yyerror(const char *s);
 %token <main> MAIN
 
 %%
-Meraki: Bloque Main
+Meraki: Funciones Main
  ;
 
-Bloque: Bloquecodigo 
+Funciones: Funciones Funcion 
  |Funcion 
  ;
 
-Bloquecodigo:  /* empty */
+Bloquecodigo:  Indicacion
  |Indicacion Bloquecodigo
  ;
 
-Main:
- MAIN PI Param PF LLAVEI Bloquemain LLAVEF
+Main: Bloquecodigo Llamado
+ |Llamado
  ;
-
-Bloquemain: 
- Bloquecodigo N_VAR PI Param PF PUNTOCOMA 
+ 
+Llamado:
+ N_VAR PI Param PF PUNTOCOMA 
  ;
-
-
+ 
 Indicacion: Si
 |Mientras
 |Haga
