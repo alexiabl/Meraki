@@ -19,7 +19,14 @@ public:
     };
     // Especifica número de reglas en la gramática
 
-    /* Especificación de las listas de reglas:
+    /* NOTA: como es un vector de listas, C++ no permite realizar estas inserciones 
+       (los nombres de las reglas) en el vector como tal, sin embargo, como nosotros vamos 
+       a insertar los tokens manualmente dentro de las listas que corresponden a cada regla no 
+       hace falta. Esto significa que la lista en la posición 0 del vector corresponde a la gramática
+       de asignación y así sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar 
+       "token1" en la lista de Devuelva (que es la lista 1). 
+       
+       Especificación de las listas de reglas en el vector:
        arreglo[0]="Asignacion";
        arreglo[1]="Devuelva";
        arreglo[2]="Declaracion";
@@ -34,14 +41,7 @@ public:
        arreglo[11]="BloqueMain";
        arreglo[12]="Main";
        arreglo[13]="Bloque";
-       arreglo[14]="Meraki";
-       
-       NOTA: como es un vector de listas, C++ no permite realizar estas inserciones 
-       (los nombres de las reglas) en el vector como tal, sin embargo, como nosotros vamos 
-       a insertar los tokens manualmente dentro de las listas que corresponden a cada regla no 
-       hace falta. Esto significa que la lista en la posición 0 del vector corresponde a la gramática
-       de asignación y así sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar 
-       "token1" en la lista de Devuelva (que es la lista 1).
+       arreglo[14]="Meraki"; 
        */
     
     ~Estructura()// Destructor
