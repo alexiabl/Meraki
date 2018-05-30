@@ -1,5 +1,7 @@
 %{
 #include <stdio.h>
+#include Estructura.h
+Estructura<string> e;
 // stuff from flex that bison needs to know about:
 extern "C" int yylex();
 extern "C" int yyparse();
@@ -10,16 +12,16 @@ void yyerror(const char *s);
 
 %union {
     char si;
-    char *sino;
-    char *mientras;
-    char *haga;
-    char *desde;
-    char *hasta;
-    char *devuelva;
-    char *imprima;
+    char sino;
+    char mientras;
+    char haga;
+    char desde;
+    char hasta;
+    char devuelva;
+    char imprima;
     
-    char *verdadero;
-    char *falso;
+    char verdadero;
+    char falso;
     char sym_igual;
     char sym_mayor;
     char sym_menor;
@@ -31,8 +33,8 @@ void yyerror(const char *s);
     char mult;
     char division;
     
-    char *igual;
-    char *diferente;
+    char igual;
+    char diferente;
     char punto;
     char punto_coma;
     char parentesisAbre;
@@ -40,20 +42,19 @@ void yyerror(const char *s);
     char llaveAbre;
     char llaveCierra;
     char *comentario;
-    char *tipo_num;
-    char *tipo_bool;
-    char *tipo_text;
-    char *tipo_car;
+    char tipo_num;
+    char tipo_bool;
+    char tipo_text;
+    char tipo_car;
     
-    char *nombre_var;
+    char nombre_var;
     
     int entero;
-    char *texto;
+    char texto;
     char car;
 
     char y;
-    char o;
-    char *main;
+    char main;
 }
 
 %token <resta> RESTA
@@ -95,25 +96,28 @@ void yyerror(const char *s);
 %token <texto> TEXTO
 %token <car> CARACTER
 %token <y> Y
-%token <o> O
 %token <main> MAIN
 
 %%
+Meraki: Funciones Main{}
+ ;
 
-Meraki:
-Bloque MAIN 
+Funciones: Funciones Funcion 
+ |Funcion {}
+ ;
+
+Bloquecodigo:  Indicacion
+ |Indicacion Bloquecodigo {}
+ ;
+
+Main: MAIN LLAVEI Bloquecodigo LLAVEF {e.insert($1,0);e.insert($2,0);e.insert($3,0);e.insert($4,0);}
 ;
-
-Bloque: Bloquecodigo Bloque
-|Funcion Bloque
-;
-
-Bloquecodigo: /* empty */
-|Indicacion Bloquecodigo 
-;
-
-Indicacion: /* empty */
-|Si
+ 
+Llamado:
+ N_VAR PI Param PF PUNTOCOMA {e.insert($1,1);e.insert($2,1);e.insert($3,1);e.insert($4,1);e.insert($5,1);}
+ ;
+ 
+Indicacion: Si
 |Mientras
 |Haga
 |Imprimir 
@@ -124,7 +128,7 @@ Indicacion: /* empty */
 ;
 
 Funcion: 
-Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF 
+Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {e.insert($1,2);e.insert($2,2);e.insert($3,2);e.insert($4,2);e.insert($5,2);e.insert($6,2);e.insert($7,2);e.insert($8,2);}
 ;
 
 Param: /* empty */
@@ -132,27 +136,27 @@ Param: /* empty */
 ;
 
 Si:
-SI Condicion LLAVEI Bloquecodigo LLAVEF 
+SI Condicion LLAVEI Bloquecodigo LLAVEF {e.insert($1,3);e.insert($2,3);e.insert($3,3);e.insert($4,3);e.insert($5,3);}
 ;
 
 Mientras: 
-MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF 
+MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {e.insert($1,4);e.insert($1,4);e.insert($1,4);e.insert($1,4);e.insert($1,4);}
 ;
 
 Haga:
-HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF 
+HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {e.insert($1,5);e.insert($2,5);e.insert($3,5);e.insert($4,5);e.insert($5,5);e.insert($6,5);e.insert($7,5);e.insert($8,5);}
 ;
 
 Imprimir:
-IMPRIMA PI Tipovarios PF PUNTOCOMA 
+IMPRIMA PI Tipovarios PF PUNTOCOMA {e.insert($1,6);e.insert($2,6);e.insert($3,6);e.insert($4,6);e.insert($5,6);}
 ;
 
 Devuelva: 
-DEVUELVA Tipovarios PUNTOCOMA 
+DEVUELVA Tipovarios PUNTOCOMA {e.insert($1,7);e.insert($2,7);e.insert($3,7);}
 ;
 
 Asignacion:
-Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA 
+Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {e.insert($1,8);e.insert($2,8);e.insert($3,8);e.insert($4,8);e.insert($5,8);}
 ;
 
 Tipoasignacion: Tipo
@@ -173,11 +177,11 @@ Simboperacion: SUMA
 |DIVISION 
 ;
 
-Declaracion: Tipo N_VAR PUNTOCOMA 
+Declaracion: Tipo N_VAR PUNTOCOMA {e.insert($1,9);e.insert($2,9);e.insert($3,9);}
 ;
 
 Iteracion:
-DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF 
+DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF{e.insert($1,10);e.insert($2,10);e.insert($3,10);e.insert($4,10);e.insert($5,10);e.insert($6,10);e.insert($7,10);e.insert($8,10);}
 ;
 
 Operadorit: Sumait
@@ -215,7 +219,6 @@ Tipovarios: CARACTER
 ;
 
 Oplog: Y
-|O 
 ;
 
 Tiponumvar: NUMERO
@@ -231,7 +234,6 @@ Simbolocomparacion: SMAYOR
 ;
 
 %%
-
 int main(int, char**) {
 	// open a file handle to a particular file:
 	FILE *myfile = fopen("in.analisisSintactico", "r");
@@ -242,19 +244,16 @@ int main(int, char**) {
 	}
 	// set flex to read from it instead of defaulting to STDIN:
 	yyin = myfile;
-
 	// parse through the input until there is no more:
 	do {
 		yyparse();
 	} while (!feof(yyin));
 	
 }
-
 void yyerror(const char *s) {
 	printf("Error de parsing");
 	exit(-1);
 }
-
 // Comandos que estoy corriendo:
 // bison -d analisisSintactico.y
 // flex merakiTokens.l
