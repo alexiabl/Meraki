@@ -14,7 +14,7 @@ class Estructura
 public:
     Estructura()
     {
-        numEntradas = 15; //15 posibles reglas en la gramática
+        numEntradas = 15; //número de posibles reglas en la gramática
         arreglo.resize(numEntradas);
     };
     // Especifica número de reglas en la gramática
@@ -27,26 +27,12 @@ public:
        "token1" en la lista de Devuelva (que es la lista 1). 
        
        Especificación de las listas de reglas en el vector:
-       arreglo[0]="Asignacion";
-       arreglo[1]="Devuelva";
-       arreglo[2]="Declaracion";
-       arreglo[3]="Iteracion";
-       arreglo[4]="Comparacion";
-       arreglo[5]="Imprimir";
-       arreglo[6]="Haga";
-       arreglo[7]="Mientras";
-       arreglo[8]="Si";
-       arreglo[9]="Funcion";
-       arreglo[10]="BloqueCodigo";
-       arreglo[11]="BloqueMain";
-       arreglo[12]="Main";
-       arreglo[13]="Bloque";
-       arreglo[14]="Meraki"; 
+      
        */
     
     ~Estructura()// Destructor
     {
-        for(int i=0; i<15; i++) arreglo[i].clear(); //limpia las listas
+        for(int i=0; i<numEntradas; i++) arreglo[i].clear(); //limpia las listas
         arreglo.clear(); //limpia el vector
     };
 
