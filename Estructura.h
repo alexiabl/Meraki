@@ -14,7 +14,7 @@ class Estructura
 public:
     Estructura()
     {
-        numEntradas = 15; //número de posibles reglas en la gramática
+        numEntradas = 10; //número de posibles reglas en la gramática
         arreglo.resize(numEntradas);
     };
     // Especifica número de reglas en la gramática
