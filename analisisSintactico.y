@@ -108,8 +108,7 @@ Bloquecodigo:  Indicacion
  |Indicacion Bloquecodigo
  ;
 
-Main: Bloquecodigo Llamado
- |Llamado
+Main: MAIN LLAVEI Bloquecodigo LLAVEF
  ;
  
 Llamado:
