@@ -98,6 +98,26 @@ void yyerror(const char *s);
 %token <y> Y
 %token <main> MAIN
 
+
+%type<Main> Main
+%type<Llamado> Llamado
+%type<Funcion> Funcion
+%type<Si> Si
+%type<Mientras> Mientras
+%type<Haga> Haga
+%type<Imprimir> Imprimir
+%type<Devuelva> Devuelva
+%type<Main> Asignacion
+%type<Declaracion> Declaracion
+%type<Iteracion> Iteracion
+%type<Bloquecodigo> Bloquecodigo
+%type<Param> Param
+%type<Tipo> Tipo
+%type<Condicion> Condicion
+%type<Tipovarios> Tipovarios
+%type<Tipoasignacion> Tipoasignacion
+%type<Tiponumvar> Tiponumvar
+%type<Operadorit> Operadorit
 %%
 Meraki: Funciones Main{}
  ;
@@ -107,10 +127,10 @@ Funciones: Funciones Funcion
  ;
 
 Bloquecodigo:  Indicacion
- |Indicacion Bloquecodigo {}
+ |Indicacion Bloquecodigo {e.insert($2,11)} 
  ;
 
-Main: MAIN LLAVEI Bloquecodigo LLAVEF {e.insert($1,0);e.insert($2,0);e.insert($3,0);e.insert($4,0);}
+Main: MAIN LLAVEI Bloquecodigo LLAVEF {e.insert($1,0);e.insert($2,0);e.insert($3,0);e.insert($4,0);e.imprimir}
 ;
  
 Llamado:
@@ -124,7 +144,8 @@ Indicacion: Si
 |Devuelva
 |Declaracion
 |Asignacion
-|Iteracion 
+|Iteracion
+|Llamado
 ;
 
 Funcion: 
