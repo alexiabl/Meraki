@@ -32,175 +32,175 @@ NUM 	[0-9]
 
 "si" { /*2*/
     //printf("%s es SI\n", yytext);
-   	yylval.si = yytext[0];
+   	yylval.texto = yytext;
 	return SI;
 }
 
 "sino" {
     //printf("%s es SINO\n", yytext);	
-    	yylval.sino = yytext[0];
+    	yylval.texto = yytext;
 	return SINO;
 }
 
 "mientras" {
     //printf("%s es MIENTRAS\n", yytext);
-    	yylval.mientras = yytext[0];
+    	yylval.texto = yytext;
 	return MIENTRAS;
 }
 
 
 "haga" {
     //printf("%s es HAGA\n", yytext);
-      	yylval.haga = yytext[0];
+      	yylval.texto = yytext;
 	return HAGA;  
 }
 
 
 "desde" { /*3 */
     //printf ("%s es ITERACIONI\n", yytext);
-    	yylval.desde = yytext[0];
+    	yylval.texto = yytext;
 	return MIENTRAS;    
 }
 
 "hasta" { /*4 */
     //printf ("%s es ITERACIONF\n", yytext);
-        yylval.hasta = yytext[0];
+        yylval.texto = yytext;
 	return HASTA;
 }
 
 "devuelva" { /*1 */
     //printf ("%s es RETORNO\n", yytext);
-    	yylval.devuelva = yytext[0];
+    	yylval.texto = yytext;
 	return DEVUELVA;
 }
 
 "imprima" { /*2 */
     //printf ("%s es IMPRESION\n", yytext);
-    	yylval.imprima = yytext[0];
+    	yylval.texto = yytext;
 	return IMPRIMA;
 }
 
 "verdadero" { /*3 */
  	//printf ("%s es VERDADERO\n", yytext);
-	yylval.verdadero = yytext[0];
+	yylval.texto = yytext;
 	return VERDADERO;
  }
 
 "falso"	{
 	//printf ("%s es FALSO\n", yytext);
-	yylval.falso = yytext[0];
+	yylval.texto = yytext;
 	return FALSO;
 }
 
 = { 
  	// printf ("%s es IGUAL\n", yytext);
-	yylval.sym_igual = yytext[0];
-	return IGUAL;
+	yylval.car = yytext[0];
+	return SIGUAL;
  }
 
 ">" { 
  	//printf ("%s es MAYOR\n", yytext);
-	yylval.sym_mayor = yytext[0];
-	return MAYOR;
+	yylval.car = yytext[0];
+	return SMAYOR;
  }
 
 "<" { 
  	//printf ("%s es MENOR\n", yytext);
-	yylval.sym_menor = yytext[0];
-	return MENOR;
+	yylval.car = yytext[0];
+	return SMENOR;
  }
 
 ">=" { 
  	//printf ("%s es MAYOR_IGUAL\n", yytext);
-	yylval.sym_mayor_igual = yytext[0];
-	return MAYOR_IGUAL;
+	yylval.texto = yytext;
+	return SMAYORIGUAL;
  }
 
 "<=" { 
  	//printf ("%s es MENOR_IGUAL\n", yytext);
-	yylval.sym_menor_igual = yytext[0];
-	return MENOR_IGUAL;	
+	yylval.texto = yytext;
+	return SMENORIGUAL;	
  }
 
  \+ { 
 	 //printf ("%s es SUMA\n", yytext);
-	 yylval.suma = atof(yytext);
+	 yylval.car = yytext[0];
 		 return SUMA;
  }
  
  \- {
  	 //printf ("%s es RESTA\n", yytext);
-	  yylval.resta = atof(yytext);
+	  yylval.car = yytext[0];
 		 return RESTA;
  }
  
  \* {
  	 //printf ("%s es MULTIPLICACION\n", yytext);
-	 yylval.mult = atof(yytext);
+	 yylval.car = yytext[0];
 		 return MULTIPLICACION;
  }
  
  \/ {
  	 //printf ("%s es DIVISION\n", yytext);
-	 yylval.division = atof(yytext);
+	 yylval.car = yytext[0];
 	return DIVISION;
  }
 
 "igual" {
  		//printf ("%s es IGUAL\n", yytext);
-		yylval.igual = yytext[0];
+		yylval.texto = yytext;
 		return IGUAL;
  	}
 
 "diferente" {
  		//printf ("%s es DIFERENTE\n", yytext);
-		yylval.diferente = yytext[0];
+		yylval.texto = yytext;
 		return DIFERENTE;
 	}
 "y" {
-	yylval.y = atof(yytext);
+	yylval.car = yytext[0];
 	return Y;
 }
-
-"o"{
-	yylval.o = atof(yytext);
+"o" {
+	yylval.car= yytext[0];
 	return O;
 }
 
+
 \. { 
  		//printf ("%s es PUNTO\n", yytext);
-		yylval.punto = yytext[0];
+		yylval.car = yytext[0];
 		return PUNTO;
 		
  	}
 
 \; { 
- 		//printf ("%s es PUNTO_COMA\n", yytext);
-		yylval.punto_coma = yytext[0];
-		return PUNTO_COMA;
+ 		//printf ("%s es PUNTOCOMA\n", yytext);
+		yylval.car = yytext[0];
+		return PUNTOCOMA;
  	}
 
 \( { 
  		//printf ("%s es PI\n", yytext);
-		yylval.parentesisAbre = yytext[0];
+		yylval.car = yytext[0];
 		return PI;
  	}
 
 \) { 
  		//printf ("%s es PARENTESISF\n", yytext);
-		yylval.parentesisCierra = yytext[0];
+		yylval.car = yytext[0];
 		return PF;
  	}
 
 \{ { 
  		//printf ("%s es LLAVEI\n", yytext);
-		yylval.llaveAbre = yytext[0];
+		yylval.car = yytext[0];
 		return LLAVEI;
  	}
 
 \} { 
  		//printf ("%s es LLAVEF\n", yytext);
-		yylval.llaveCierra = yytext[0];
+		yylval.car = yytext[0];
 		return LLAVEF;
  	}
 
@@ -214,44 +214,44 @@ NUM 	[0-9]
 
 "numero" { 
  		//printf ("%s es TIPO_NUM\n", yytext);
-		yylval.tipo_num = yytext[0];
-		return TIPO_NUM;
+		yylval.texto = yytext;
+		return TIPONUM;
  	}
 
 "bool" { 
  		//printf ("%s es TIPO_BOOL\n", yytext);
-		yylval.tipo_bool = yytext[0];
-		return TIPO_BOOL;
+		yylval.texto = yytext;
+		return TIPOBOOL;
  	}
 
 "texto" {
  		//printf ("%s es TIPO_TEXT\n", yytext);
-		yylval.tipo_text = yytext[0];
-		return TIPO_TEXT;
+		yylval.texto = yytext;
+		return TIPOTEXTO;
  	}
 
 "car" {
  		//printf ("%s es TIPO_CAR\n", yytext);
-		yylval.tipo_car = yytext[0];
-		return TIPO_CAR;
+		yylval.texto = yytext;
+		return TIPOCAR;
  	}
 
 [a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])? {
  		// printf ("%s es N_VAR\n", yytext);
-		 yylval.nombre_var = (strdup)(yytext);
+		 yylval.texto = yytext;
 		 return N_VAR;
  	}
 
 \"(.*)\" { 
  		//printf ("%s es TEXTO\n", yytext);
-		yylval.texto = yytext[0];
+		yylval.texto = yytext;
 		return TEXTO;
 		
  	}
 
 -?[0-9]+ { 
  		// printf ("%s es NUMERO\n", yytext);
-		  yylval.entero = atoi(yytext);
+		  yylval.numero = atoi(yytext);
 		 return NUMERO;
  	}
 
@@ -262,11 +262,12 @@ NUM 	[0-9]
  	}
 
 "main" {
-	yylval.main = yytext[0];
+	yylval.texto = yytext;
 	return MAIN;
 }
 
 .|\n		ECHO;
 
 %%
+
 

@@ -1,5 +1,7 @@
 %{
 #include <stdio.h>
+#include "Estructura.h"
+Estructura<string> e;
 // stuff from flex that bison needs to know about:
 extern "C" int yylex();
 extern "C" int yyparse();
@@ -9,230 +11,223 @@ void yyerror(const char *s);
 %}
 
 %union {
-    char si;
-    char *sino;
-    char *mientras;
-    char *haga;
-    char *desde;
-    char *hasta;
-    char *devuelva;
-    char *imprima;
-    
-    char *verdadero;
-    char *falso;
-    char sym_igual;
-    char sym_mayor;
-    char sym_menor;
-    char sym_mayor_igual;
-    char sym_menor_igual;
-    char suma;
-    
-    char resta;
-    char mult;
-    char division;
-    
-    char *igual;
-    char *diferente;
-    char punto;
-    char punto_coma;
-    char parentesisAbre;
-    char parentesisCierra;
-    char llaveAbre;
-    char llaveCierra;
-    char *comentario;
-    char *tipo_num;
-    char *tipo_bool;
-    char *tipo_text;
-    char *tipo_car;
-    
-    char *nombre_var;
-    
-    int entero;
-    char *texto;
-    char car;
-
-    char y;
-    char o;
-    char *main;
+	char* texto;
+	char car;
+	int numero;
+	std::list<string> *lista;
 }
 
-%token <resta> RESTA
-%token <mult> MULTIPLICACION
-%token <division> DIVISION 
-%token <nombre_var> N_VAR
-%token <entero> NUMERO
-%token <suma> SUMA
-%token <igual> IGUAL
+%token <car> RESTA
+%token <car> MULTIPLICACION
+%token <car> DIVISION 
+%token <texto> N_VAR
+%token <numero> NUMERO
+%token <car> SUMA
+%token <texto> IGUAL
 
-%token <si> SI 
-%token <sino> SINO
-%token <mientras> MIENTRAS 
-%token <haga> HAGA
-%token <desde> DESDE 
-%token <hasta> HASTA
-%token <devuelva> DEVUELVA
-%token <imprima> IMPRIMA 
+%token <texto> SI 
+%token <texto> SINO
+%token <texto> MIENTRAS 
+%token <texto> HAGA
+%token <texto> DESDE 
+%token <texto> HASTA
+%token <texto> DEVUELVA
+%token <texto> IMPRIMA 
 
-%token <verdadero> VERDADERO
-%token <falso> FALSO
-%token <sym_igual> SIGUAL
-%token <sym_mayor> SMAYOR
-%token <sym_menor> SMENOR
-%token <sym_mayor_igual> SMAYORIGUAL
-%token <sym_menor_igual> SMENORIGUAL
-%token <diferente> DIFERENTE
-%token <punto> PUNTO
-%token <punto_coma> PUNTOCOMA
-%token <parentesisAbre> PI
-%token <parentesisCierra> PF
-%token <llaveAbre> LLAVEI
-%token <llaveCierra> LLAVEF
-%token <comentario> COMENTARIO
-%token <tipo_num> TIPONUM
-%token <tipo_bool> TIPOBOOL
-%token <tipo_text> TIPOTEXTO
-%token <tipo_car> TIPOCAR
+%token <texto> VERDADERO
+%token <texto> FALSO
+%token <car> SIGUAL
+%token <car> SMAYOR
+%token <car> SMENOR
+%token <texto> SMAYORIGUAL
+%token <texto> SMENORIGUAL
+%token <texto> DIFERENTE
+%token <car> PUNTO
+%token <car> PUNTOCOMA
+%token <car> PI
+%token <car> PF
+%token <car> LLAVEI
+%token <car> LLAVEF
+%token <texto> COMENTARIO
+%token <texto> TIPONUM
+%token <texto> TIPOBOOL
+%token <texto> TIPOTEXTO
+%token <texto> TIPOCAR
 %token <texto> TEXTO
 %token <car> CARACTER
-%token <y> Y
-%token <o> O
-%token <main> MAIN
+%token <car> Y
+%token <car> O
+%token <texto> MAIN
 
+
+%type<lista> Main
+%type<lista> Llamado
+%type<lista> Funcion
+%type<lista> Si
+%type<lista> Mientras
+%type<lista> Haga
+%type<lista> Imprimir
+%type<lista> Devuelva
+%type<lista> Asignacion
+%type<lista> Declaracion
+%type<lista> Iteracion
+%type<lista> Bloquecodigo
+%type<lista> Param
+%type<lista> Tipo
+%type<lista> Condicion
+%type<lista> Tipovarios
+%type<lista> Tipoasignacion
+%type<lista> Tiponumvar
+%type<lista> Operadorit
 %%
-
-Meraki:
- Bloque MAIN {}
+Meraki: Funciones Main{}
  ;
 
-Bloque: Bloquecodigo 
+Funciones: Funciones Funcion 
  |Funcion {}
  ;
 
-Bloquecodigo: 
- |Indicacion Bloquecodigo {}
+Bloquecodigo:  Indicacion 
+ |Indicacion Bloquecodigo {e.insert($2,11)} 
  ;
 
-Indicacion: 
- |Si
- |Mientras
- |Haga
- |Imprimir 
- |Devuelva
- |Declaracion
- |Asignacion
- |Iteracion {}
- ;
-
-Funcion: 
- Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {}
-  ;
-
-Param:
- |Tipo N_VAR Param {}
-  ;
-
-Si:
- SI Condicion LLAVEI Bloquecodigo LLAVEF {}
- ;
-
-Mientras: 
- MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {}
- ;
-
-Haga:
- HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {}
- ;
-
-Imprimir:
- IMPRIMA PI Tipovarios PF PUNTOCOMA {}
- ;
-
-Devuelva: 
- DEVUELVA Tipovarios PUNTOCOMA {}
- ;
-
-Asignacion:
- Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {}
- ;
-
-Tipoasignacion: Tipo
- |Operacionmate {}
- ;
-
-Operacionmate: 
- Tiponumvar Operador {}
- ;
-
-Operador: Simboperacion Tiponumvar Operador 
- |Simboperacion Tiponumvar {}
- ;
-
-Simboperacion: SUMA
- |RESTA
- |MULTIPLICACION
- |DIVISION {}
- ;
-
-Declaracion: Tipo N_VAR PUNTOCOMA {}
- ;
-
-Iteracion:
- DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF {}
- ;
-
-Operadorit: Sumait
- |Restait {}
- ;
-
-Sumait: 
-SUMA SUMA {}
- ;
-
-Restait: 
-RESTA RESTA {}
- ;
-
-Tipo: TIPONUM
- | TIPOBOOL
- | TIPOCAR
- | TIPOTEXTO {}
- ;
-
-Condicion:
-Tipovarios Comparacion {}
+Main: MAIN LLAVEI Bloquecodigo LLAVEF  {$$ = std::list<string> *l13 ($1,$2,$3,$4,$5);}
 ;
-
-Comparacion: 
- Simbolocomparacion Tipovarios Oplog Condicion 
- |Simbolocomparacion Tipovarios {}
-
-Tipovarios: CARACTER
- | NUMERO
- | TEXTO
- | VERDADERO
- | FALSO
- | N_VAR {}
-;
-
-Oplog: Y
- | O {}
- ;
-
-Tiponumvar: NUMERO
- | N_VAR {}
- ;
-
-Simbolocomparacion: SMAYOR
- |SMENOR
- |SMAYORIGUAL
- |SMENORIGUAL
- |DIFERENTE
- |SIGUAL {}
+ 
+Llamado:
+ N_VAR PI Param PF PUNTOCOMA {$$ = std::list<string> *l13 ($1,$2,$3,$4,$5);}
  ;
  
+Indicacion: Si {e.insert($1,3), $$ = $1} 
+|Mientras {e.insert($1,4), $$ = $1} 
+|Haga {e.insert($1,5), $$ = $1} 
+|Imprimir {e.insert($1,6), $$ = $1} 
+|Devuelva {e.insert($1,7), $$ = $1} 
+|Declaracion {e.insert($1,9), $$ = $1} 
+|Asignacion {e.insert($1,8), $$ = $1} 
+|Iteracion {e.insert($1,10), $$ = $1} 
+|Llamado {e.insert($1,1),$$ = $1} 
+;
+ //arreglo[0]= Main
+        //arreglo[1]= Llamado
+        //arreglo[2]= Funcion
+        //arreglo[3]= Si
+        //arreglo[4]= Mientras
+        //arreglo[5]= Haga
+        //arreglo[6]= Imprimir
+        //arreglo[7]= Devuelva
+        //arreglo[8]= Asignacion
+        //arreglo[9]= Declaracion
+        //arreglo[10]= Iteracion
+
+Funcion: 
+Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {$$ = std::list<string> *l6 ($1,$2,$3,$4,$5,$6,$7,$8);}
+;
+
+Param: /* empty */
+|Tipo N_VAR Param {$$ = std::list<string> *l12 ($1,$2,$3);}
+;
+
+Si:
+SI Condicion LLAVEI Bloquecodigo LLAVEF {$$ = std::list<string> *l11 ($1,$2,$3,$4,$5);}
+;
+
+Mientras: 
+MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {$$ = std::list<string> *l10 ($1,$2,$3,$4,$5);}
+;
+
+Haga:
+HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {$$ = std::list<string> *l9 ($1,$2,$3,$4,$5,$6,$7,$8);}
+;
+
+Imprimir:
+IMPRIMA PI Tipovarios PF PUNTOCOMA {$$ = std::list<string> *l8 ($1,$2,$3,$4,$5);}
+;
+
+Devuelva: 
+DEVUELVA Tipovarios PUNTOCOMA {$$ = std::list<string> *l7 ($1,$2,$3);}
+;
+
+Asignacion:
+Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {$$ = std::list<string> *l6 ($1,$2,$3,$4,$5);}
+;
+
+Tipoasignacion: Tipo {$$ = $1;}
+|Operacionmate {$$ = $1;}
+;
+
+Operacionmate: 
+Tiponumvar Operador {$$ = std::list<string> *l5 ($1,$2);}
+;
+
+Operador: Simboperacion Tiponumvar Operador {$$ = std::list<string> *l3 ($1,$2,$3);}
+|Simboperacion Tiponumvar {$$ = std::list<string> *l4 ($1,$2);}
+;
+
+Simboperacion: SUMA {$$ = $1;}
+|RESTA {$$ = $1;}
+|MULTIPLICACION {$$ = $1;}
+|DIVISION {$$ = $1;}
+;
+
+Declaracion: Tipo N_VAR PUNTOCOMA {e.insert($1,9);e.insert($2,9);e.insert($3,9);}
+;
+
+Iteracion:
+DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF{e.insert($1,10);e.insert($2,10);e.insert($3,10);e.insert($4,10);e.insert($5,10);e.insert($6,10);e.insert($7,10);e.insert($8,10);}
+;
+
+Operadorit: Sumait {$$ = $1;}
+|Restait {$$ = $1;}
+;
+
+Sumait: 
+SUMA SUMA {strcat($1,$2); $$ = $1;}
+;
+
+Restait: 
+RESTA RESTA {strcat($1,$2); $$ = $1;}
+;
+
+Tipo: TIPONUM {$$ = $1;}
+|TIPOBOOL {$$ = $1;}
+|TIPOCAR {$$ = $1;}
+|TIPOTEXTO {$$ = $1;}
+;
+
+Condicion:
+Tipovarios Comparacion {$$ = std::list<string> *l2 ($1);l2.push_back($2);}
+;
+
+Comparacion: Simbolocomparacion Tipovarios Oplog Condicion {$$ = std::list<string> *l1 ($1,$2,$3); l1.push_back($4);}
+|Simbolocomparacion Tipovarios {$$ = std::list<string> *l1 ($1,$2);}
+;
+
+Tipovarios: CARACTER {$$ = $1;}
+|NUMERO {$$ = $1;}
+|TEXTO {$$ = $1;}
+|VERDADERO {$$ = $1;}
+|FALSO {$$ = $1;}
+|N_VAR {$$ = $1;}
+;
+
+Oplog: Y {$$ = $1;}
+| O {$$ = $1;}
+;
+
+Tiponumvar: NUMERO {$$ = $1;}
+|N_VAR {$$ = $1;}
+;
+
+Simbolocomparacion: SMAYOR {$$ = $1;}
+|SMENOR {$$ = $1;}
+|SMAYORIGUAL {$$ = $1;}
+|SMENORIGUAL {$$ = $1;}
+|DIFERENTE {$$ = $1;}
+|SIGUAL {$$ = $1;}
+;
 
 %%
-
 int main(int, char**) {
 	// open a file handle to a particular file:
 	FILE *myfile = fopen("in.analisisSintactico", "r");
@@ -243,20 +238,18 @@ int main(int, char**) {
 	}
 	// set flex to read from it instead of defaulting to STDIN:
 	yyin = myfile;
-
 	// parse through the input until there is no more:
 	do {
 		yyparse();
 	} while (!feof(yyin));
 	
 }
-
 void yyerror(const char *s) {
 	printf("Error de parsing");
 	exit(-1);
 }
-
 // Comandos que estoy corriendo:
 // bison -d analisisSintactico.y
 // flex merakiTokens.l
 // g++ analisisSintactico.tab.c lex.yy.c -ll -o analisisS
+
