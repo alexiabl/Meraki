@@ -1,7 +1,13 @@
 %{
 #include <stdio.h>
+#include <list>
+#include <stack>
 #include "Estructura.h"
 Estructura<string> e;
+
+#include "PilaToken.h"
+PilaToken<string> pilatoken;
+stack<PilaToken> pila;
 // stuff from flex that bison needs to know about:
 extern "C" int yylex();
 extern "C" int yyparse();
@@ -60,6 +66,7 @@ void yyerror(const char *s);
 %token <texto> MAIN
 
 
+
 %type<lista> Main
 %type<lista> Llamado
 %type<lista> Funcion
@@ -78,35 +85,47 @@ void yyerror(const char *s);
 %type<lista> Tipovarios
 %type<lista> Tipoasignacion
 %type<lista> Tiponumvar
-%type<lista> Operadorit
+%type<texto> Operadorit
+%type<lista> Indicacion
+%type<lista> Operacionmate
+%type<lista> Operador
+%type<texto> Simboperacion
+%type<texto> Sumait
+%type<texto> Restait
+%type<lista> Comparacion
+%type<texto> Oplog
+%type<texto> Simbolocomparacion
+%type<lista> Funciones
+
+
 %%
-Meraki: Funciones Main{}
+Meraki: Funciones Main { e.insert($2,13); } 
  ;
 
-Funciones: Funciones Funcion 
- |Funcion {}
+Funciones: Funcion Funciones { e.insert($1,2); }
+ | Funcion { e.insert($1,2); }
  ;
 
-Bloquecodigo:  Indicacion 
- |Indicacion Bloquecodigo {e.insert($2,11)} 
+Bloquecodigo:  Indicacion {e.insert($1,11);} 
+ |Indicacion Bloquecodigo {e.insert($1,11); e.insert($2,12);} 
  ;
 
-Main: MAIN LLAVEI Bloquecodigo LLAVEF  {$$ = std::list<string> *l13 ($1,$2,$3,$4,$5);}
+Main: MAIN LLAVEI Bloquecodigo LLAVEF  {$$ = new std::list<string> *l13 ($1,$2,$3,$4);}
 ;
  
 Llamado:
- N_VAR PI Param PF PUNTOCOMA {$$ = std::list<string> *l13 ($1,$2,$3,$4,$5);}
+ N_VAR PI Param PF PUNTOCOMA {$$ = new std::list<string> *l13 ($1,$2,$3,$4,$5);}
  ;
  
-Indicacion: Si {e.insert($1,3), $$ = $1} 
-|Mientras {e.insert($1,4), $$ = $1} 
-|Haga {e.insert($1,5), $$ = $1} 
-|Imprimir {e.insert($1,6), $$ = $1} 
-|Devuelva {e.insert($1,7), $$ = $1} 
-|Declaracion {e.insert($1,9), $$ = $1} 
-|Asignacion {e.insert($1,8), $$ = $1} 
-|Iteracion {e.insert($1,10), $$ = $1} 
-|Llamado {e.insert($1,1),$$ = $1} 
+Indicacion: Si {$$ = $1;} 
+|Mientras {$$ = $1;} 
+|Haga {$$ = $1;} 
+|Imprimir {$$ = $1;} 
+|Devuelva {$$ = $1;} 
+|Declaracion {$$ = $1;} 
+|Asignacion {$$ = $1;} 
+|Iteracion {$$ = $1;} 
+|Llamado {$$ = $1;} 
 ;
  //arreglo[0]= Main
         //arreglo[1]= Llamado
@@ -119,37 +138,41 @@ Indicacion: Si {e.insert($1,3), $$ = $1}
         //arreglo[8]= Asignacion
         //arreglo[9]= Declaracion
         //arreglo[10]= Iteracion
+		//arreglo[11]=Indicacion
+		//arreglo[12]=Bloquecodigo
+		//arreglo[13] =Main
 
 Funcion: 
-Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {$$ = std::list<string> *l6 ($1,$2,$3,$4,$5,$6,$7,$8);}
+Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<string> *l6 ($1,$2,$3,$4,$5,$6,$7,$8);}
 ;
 
-Param: /* empty */
-|Tipo N_VAR Param {$$ = std::list<string> *l12 ($1,$2,$3);}
+Param:
+Tipo N_VAR Param {$$ = new std::list<string> *l12 ($1,$2,$3);}
+| {}
 ;
 
 Si:
-SI Condicion LLAVEI Bloquecodigo LLAVEF {$$ = std::list<string> *l11 ($1,$2,$3,$4,$5);}
+SI Condicion LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<string> *l11 ($1,$2,$3,$4,$5);}
 ;
 
 Mientras: 
-MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {$$ = std::list<string> *l10 ($1,$2,$3,$4,$5);}
+MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<string> *l10 ($1,$2,$3,$4,$5);}
 ;
 
 Haga:
-HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {$$ = std::list<string> *l9 ($1,$2,$3,$4,$5,$6,$7,$8);}
+HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF {$$ = new std::list<string> *l9 ($1,$2,$3,$4,$5,$6,$7,$8);}
 ;
 
 Imprimir:
-IMPRIMA PI Tipovarios PF PUNTOCOMA {$$ = std::list<string> *l8 ($1,$2,$3,$4,$5);}
+IMPRIMA PI Tipovarios PF PUNTOCOMA {$$ = new std::list<string> *l8 ($1,$2,$3,$4,$5);}
 ;
 
 Devuelva: 
-DEVUELVA Tipovarios PUNTOCOMA {$$ = std::list<string> *l7 ($1,$2,$3);}
+DEVUELVA Tipovarios PUNTOCOMA {$$ = new std::list<string> *l7 ($1,$2,$3);}
 ;
 
 Asignacion:
-Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {$$ = std::list<string> *l6 ($1,$2,$3,$4,$5);}
+Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA {$$ = new std::list<string> *l6 ($1,$2,$3,$4,$5);}
 ;
 
 Tipoasignacion: Tipo {$$ = $1;}
@@ -157,11 +180,11 @@ Tipoasignacion: Tipo {$$ = $1;}
 ;
 
 Operacionmate: 
-Tiponumvar Operador {$$ = std::list<string> *l5 ($1,$2);}
+Tiponumvar Operador {$$ = new std::list<string> *l5 ($1,$2);}
 ;
 
-Operador: Simboperacion Tiponumvar Operador {$$ = std::list<string> *l3 ($1,$2,$3);}
-|Simboperacion Tiponumvar {$$ = std::list<string> *l4 ($1,$2);}
+Operador: Simboperacion Tiponumvar Operador {$$ = new std::list<string> *l3 ($1,$2,$3);}
+|Simboperacion Tiponumvar {$$ = new std::list<string> *l4 ($1,$2);}
 ;
 
 Simboperacion: SUMA {$$ = $1;}
@@ -174,7 +197,7 @@ Declaracion: Tipo N_VAR PUNTOCOMA {e.insert($1,9);e.insert($2,9);e.insert($3,9);
 ;
 
 Iteracion:
-DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF{e.insert($1,10);e.insert($2,10);e.insert($3,10);e.insert($4,10);e.insert($5,10);e.insert($6,10);e.insert($7,10);e.insert($8,10);}
+DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF { e.insert($1,10);e.insert($2,10);e.insert($3,10);e.insert($4,10);e.insert($5,10);e.insert($6,10);e.insert($7,10);e.insert($8,10);}
 ;
 
 Operadorit: Sumait {$$ = $1;}
@@ -196,11 +219,11 @@ Tipo: TIPONUM {$$ = $1;}
 ;
 
 Condicion:
-Tipovarios Comparacion {$$ = std::list<string> *l2 ($1);l2.push_back($2);}
+Tipovarios Comparacion {$$ = new std::list<string> *l2 ($1);l2.push_back($2);}
 ;
 
-Comparacion: Simbolocomparacion Tipovarios Oplog Condicion {$$ = std::list<string> *l1 ($1,$2,$3); l1.push_back($4);}
-|Simbolocomparacion Tipovarios {$$ = std::list<string> *l1 ($1,$2);}
+Comparacion: Simbolocomparacion Tipovarios Oplog Condicion {$$ = new std::list<string> *l1 ($1,$2,$3); l1.push_back($4);}
+|Simbolocomparacion Tipovarios {$$ = new std::list<string> *l1 ($1,$2);}
 ;
 
 Tipovarios: CARACTER {$$ = $1;}
@@ -242,6 +265,8 @@ int main(int, char**) {
 	do {
 		yyparse();
 	} while (!feof(yyin));
+
+
 	
 }
 void yyerror(const char *s) {

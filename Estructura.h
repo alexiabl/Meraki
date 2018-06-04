@@ -2,7 +2,7 @@
 #define ESTRUCTURA_CLASS
 #include <list>
 #include <vector>
-#include <iostream>
+#include <iostream.h>
 #include <cstdlib>
 #include <ctime>
 using namespace std;

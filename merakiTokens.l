@@ -14,6 +14,8 @@ Basado en el ejemplo del laboratorio.
 
 %{
 #include <iostream>
+#include <list>
+#include <string>
 #include "analisisSintactico.tab.h"  // to get the token types that we return
 using namespace std;
 #define YY_DECL extern "C" int yylex()
