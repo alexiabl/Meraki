@@ -14,8 +14,8 @@ Basado en el ejemplo del laboratorio.
 
 %{
 #include <iostream>
-#include <list>
-#include <string>
+#include "list"
+#include "string"
 #include "analisisSintactico.tab.h"  // to get the token types that we return
 using namespace std;
 #define YY_DECL extern "C" int yylex()
@@ -31,6 +31,11 @@ using namespace std;
 %option noyywrap
 NUM 	[0-9]
 %%
+"main" { /*2*/
+    //printf("%s es SI\n", yytext);
+   	yylval.texto = yytext;
+	return MAIN;
+}
 
 "si" { /*2*/
     //printf("%s es SI\n", yytext);
@@ -61,7 +66,7 @@ NUM 	[0-9]
 "desde" { /*3 */
     //printf ("%s es ITERACIONI\n", yytext);
     	yylval.texto = yytext;
-	return MIENTRAS;    
+	return DESDE;    
 }
 
 "hasta" { /*4 */
@@ -262,14 +267,6 @@ NUM 	[0-9]
 		yylval.car = yytext[0];
 		return CARACTER;
  	}
-
-"main" {
-	yylval.texto = yytext;
-	return MAIN;
-}
-
 .|\n		ECHO;
 
 %%
-
-
