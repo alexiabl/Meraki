@@ -10,7 +10,7 @@ using namespace std;
 
 class pruebaPila{
 
-int main(int, char**) {
+int main() {
     std::list<string> tipo; 
     PilaToken<string> pt;
 
@@ -20,7 +20,7 @@ int main(int, char**) {
     pt.setTipo(tipo);
 
 
-    std::stack<PilaToken<string>> stack;
+    std::stack<PilaToken<string> > stack;
 
     stack.push(pt);
 
@@ -28,7 +28,8 @@ int main(int, char**) {
 
   while (!stack.empty())
   {
-     std::cout << " " << stack.top() << std::endl;
+    PilaToken<string> item = stack.top();
+     std::cout << item.getPosicionInicial() << std::endl;
      std::cout << "hola" << std::endl;
      stack.pop();
   }

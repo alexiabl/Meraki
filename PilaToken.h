@@ -48,6 +48,4 @@ class PilaToken
             return tipo;
         }
 
-
-
 };
