@@ -1,13 +1,3 @@
-Fib(numero n)
-{
-	si(n>=1)
-	{
-         devuelva (n);
-	} sino {
-	  devuelva(Fib(n-1)+Fib(n-2))
-	}
-}
-
-main {
-    Fib(5);
-}
+numero prueba( ){
+	 imprima (p);}
+main( ){prueba( );}
