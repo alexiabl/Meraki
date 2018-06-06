@@ -112,9 +112,12 @@ public:
             }
             std::cout << std::endl;
         }
+        
+        std::cout << std::endl;
+        cout << "pop pila" << endl;
+        
         while (!pila.empty())
         {
-            cout << "pop pila" << endl;
             PilaToken obj = pila.front();
             cout << "tipo regla: " << obj.tipo << endl;
             cout << "posI: " << obj.posicionInicial << endl;
