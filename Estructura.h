@@ -20,6 +20,14 @@ template <typename T>
 class Estructura
 {
 public:
+    int numEntradas;
+    // Nœmero de entradas en el arreglo
+    vector<list<T> > arreglo;
+    // El arreglo es un vector de listas de STL
+    queue<PilaToken> pila;
+    string reglas [15] = {"Asignacion", "Devuelva","Declaracion","Iteracion","Comparacion","Imprimir",
+                          "Haga","Mientras","Si","Funcion","BloqueCodigo","BloqueMain","Main","Bloque","Meraki"
+                         };
 
     Estructura()
     {
@@ -112,15 +120,5 @@ public:
             pila.pop();
         }
     }
-
-private:
-    int numEntradas;
-    // Nœmero de entradas en el arreglo
-    vector<list<T> > arreglo;
-    // El arreglo es un vector de listas de STL
-    queue<PilaToken> pila;
-    string reglas [15] = {"Asignacion", "Devuelva","Declaracion","Iteracion","Comparacion","Imprimir",
-                          "Haga","Mientras","Si","Funcion","BloqueCodigo","BloqueMain","Main","Bloque","Meraki"
-                         };
 };
 #endif
