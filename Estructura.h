@@ -38,21 +38,24 @@ public:
        (los nombres de las reglas) en el vector como tal, sin embargo, como nosotros vamos
        a insertar los tokens manualmente dentro de las listas que corresponden a cada regla no
        hace falta. Esto significa que la lista en la posición 0 del vector corresponde a la gramática
-       de main y así sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar
-       "token1" en la lista de LLamado (que es la lista 1).
+       de asignación y así sucesivamente. 
 
        Especificación de las listas de reglas en el vector:
-        //arreglo[0]= Main
-        //arreglo[1]= Llamado
-        //arreglo[2]= Funcion
-        //arreglo[3]= Si
-        //arreglo[4]= Mientras
-        //arreglo[5]= Haga
-        //arreglo[6]= Imprimir
-        //arreglo[7]= Devuelva
-        //arreglo[8]= Asignacion
-        //arreglo[9]= Declaracion
-        //arreglo[10]= Iteracion
+       // arreglo[0]="Asignacion";
+       // arreglo[1]="Devuelva";
+       // arreglo[2]="Declaracion";
+       // arreglo[3]="Iteracion";
+       // arreglo[4]="Comparacion";
+       // arreglo[5]="Imprimir";
+       // arreglo[6]="Haga";
+       // arreglo[7]="Mientras";
+       // arreglo[8]="Si";
+       // arreglo[9]="Funcion";
+       // arreglo[10]="BloqueCodigo";
+       // arreglo[11]="BloqueMain";
+       // arreglo[12]="Main";
+       // arreglo[13]="Bloque";
+       // arreglo[14]="Meraki";
        */
 
     int search(const T& token,int pos) //token específico en la lista de una regla específica
