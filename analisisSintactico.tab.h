@@ -76,7 +76,8 @@
      TEXTO = 292,
      CARACTER = 293,
      Y = 294,
-     MAIN = 295
+     O = 295,
+     MAIN = 296
    };
 #endif
 
@@ -87,57 +88,17 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 11 "analisisSintactico.y"
+#line 18 "analisisSintactico.y"
 
-    char si;
-    char sino;
-    char mientras;
-    char haga;
-    char desde;
-    char hasta;
-    char devuelva;
-    char imprima;
-    
-    char verdadero;
-    char falso;
-    char sym_igual;
-    char sym_mayor;
-    char sym_menor;
-    char sym_mayor_igual;
-    char sym_menor_igual;
-    char suma;
-    
-    char resta;
-    char mult;
-    char division;
-    
-    char igual;
-    char diferente;
-    char punto;
-    char punto_coma;
-    char parentesisAbre;
-    char parentesisCierra;
-    char llaveAbre;
-    char llaveCierra;
-    char *comentario;
-    char tipo_num;
-    char tipo_bool;
-    char tipo_text;
-    char tipo_car;
-    
-    char nombre_var;
-    
-    int entero;
-    char texto;
-    char car;
-
-    char y;
-    char main;
+	std::string* texto;
+	char car;
+	int numero;
+	std::list<std::string> *lista;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 141 "analisisSintactico.tab.h"
+#line 102 "analisisSintactico.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

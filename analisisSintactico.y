@@ -1,5 +1,12 @@
 %{
 #include <stdio.h>
+#include <list>
+#include <stack>
+#include <string>
+#include "Estructura.h"
+Estructura<string> e;
+
+using namespace std;
 // stuff from flex that bison needs to know about:
 extern "C" int yylex();
 extern "C" int yyparse();
@@ -9,228 +16,80 @@ void yyerror(const char *s);
 %}
 
 %union {
-    char si;
-    char sino;
-    char mientras;
-    char haga;
-    char desde;
-    char hasta;
-    char devuelva;
-    char imprima;
-    
-    char verdadero;
-    char falso;
-    char sym_igual;
-    char sym_mayor;
-    char sym_menor;
-    char sym_mayor_igual;
-    char sym_menor_igual;
-    char suma;
-    
-    char resta;
-    char mult;
-    char division;
-    
-    char igual;
-    char diferente;
-    char punto;
-    char punto_coma;
-    char parentesisAbre;
-    char parentesisCierra;
-    char llaveAbre;
-    char llaveCierra;
-    char *comentario;
-    char tipo_num;
-    char tipo_bool;
-    char tipo_text;
-    char tipo_car;
-    
-    char nombre_var;
-    
-    int entero;
-    char texto;
-    char car;
-
-    char y;
-    char main;
+	std::string* texto;
+	char car;
+	int numero;
+	std::list<std::string> *lista;
 }
 
-%token <resta> RESTA
-%token <mult> MULTIPLICACION
-%token <division> DIVISION 
-%token <nombre_var> N_VAR
-%token <entero> NUMERO
-%token <suma> SUMA
-%token <igual> IGUAL
-
-%token <si> SI 
-%token <sino> SINO
-%token <mientras> MIENTRAS 
-%token <haga> HAGA
-%token <desde> DESDE 
-%token <hasta> HASTA
-%token <devuelva> DEVUELVA
-%token <imprima> IMPRIMA 
-
-%token <verdadero> VERDADERO
-%token <falso> FALSO
-%token <sym_igual> SIGUAL
-%token <sym_mayor> SMAYOR
-%token <sym_menor> SMENOR
-%token <sym_mayor_igual> SMAYORIGUAL
-%token <sym_menor_igual> SMENORIGUAL
-%token <diferente> DIFERENTE
-%token <punto> PUNTO
-%token <punto_coma> PUNTOCOMA
-%token <parentesisAbre> PI
-%token <parentesisCierra> PF
-%token <llaveAbre> LLAVEI
-%token <llaveCierra> LLAVEF
-%token <comentario> COMENTARIO
-%token <tipo_num> TIPONUM
-%token <tipo_bool> TIPOBOOL
-%token <tipo_text> TIPOTEXTO
-%token <tipo_car> TIPOCAR
+%token <texto> RESTA
+%token <texto> MULTIPLICACION
+%token <texto> DIVISION 
+%token <texto> N_VAR
+%token <texto> NUMERO
+%token <texto> SUMA
+%token <texto> IGUAL
+%token <texto> SI 
+%token <texto> SINO
+%token <texto> MIENTRAS 
+%token <texto> HAGA
+%token <texto> DESDE 
+%token <texto> HASTA
+%token <texto> DEVUELVA
+%token <texto> IMPRIMA 
+%token <texto> VERDADERO
+%token <texto> FALSO
+%token <texto> SIGUAL
+%token <texto> SMAYOR
+%token <texto> SMENOR
+%token <texto> SMAYORIGUAL
+%token <texto> SMENORIGUAL
+%token <texto> DIFERENTE
+%token <texto> PUNTO
+%token <texto> PUNTOCOMA
+%token <texto> PI
+%token <texto> PF
+%token <texto> LLAVEI
+%token <texto> LLAVEF
+%token <texto> COMENTARIO
+%token <texto> TIPONUM
+%token <texto> TIPOBOOL
+%token <texto> TIPOTEXTO
+%token <texto> TIPOCAR
 %token <texto> TEXTO
-%token <car> CARACTER
-%token <y> Y
-%token <main> MAIN
+%token <texto> CARACTER
+%token <texto> Y
+%token <texto> O
+%token <texto> MAIN
 
+%type<texto> Oplog
+%type<texto> Simbolocomparacion
+%type<texto> Tipovarios
+%type<texto> Tiponumvar
 %%
-Meraki: Bloque Main
- ;
 
-Bloque: Bloquecodigo 
- |Funcion 
- ;
-
-Bloquecodigo:  /* empty */
- |Indicacion Bloquecodigo
- ;
-
-Main:
- MAIN PI Param PF LLAVEI Bloquemain LLAVEF
- ;
-
-Bloquemain: 
- Bloquecodigo N_VAR PI Param PF PUNTOCOMA 
- ;
-
-
-Indicacion: Si
-|Mientras
-|Haga
-|Imprimir 
-|Devuelva
-|Declaracion
-|Asignacion
-|Iteracion 
+Meraki: Tipovarios Oplog Tiponumvar Simbolocomparacion { cout << "Tenemos " << $1<<" " << $2<<" " <<$3<<" "<<$4<< endl; }
+Tipovarios: CARACTER {$$ = $1;}
+|NUMERO {$$ = $1;}
+|TEXTO {$$ = $1;}
+|VERDADERO {$$ = $1;}
+|FALSO {$$ = $1;}
+|N_VAR {$$ = $1;}
 ;
 
-Funcion: 
-Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF 
+Oplog: O {$$ = $1;}
+|Y {$$ = $1;};
+
+Tiponumvar: NUMERO {$$ = $1;}
+|N_VAR {$$ = $1;}
 ;
 
-Param: /* empty */
-|Tipo N_VAR Param 
-;
-
-Si:
-SI Condicion LLAVEI Bloquecodigo LLAVEF 
-;
-
-Mientras: 
-MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF 
-;
-
-Haga:
-HAGA LLAVEI Bloquecodigo LLAVEF MIENTRAS PI Condicion PF 
-;
-
-Imprimir:
-IMPRIMA PI Tipovarios PF PUNTOCOMA 
-;
-
-Devuelva: 
-DEVUELVA Tipovarios PUNTOCOMA 
-;
-
-Asignacion:
-Tipo N_VAR SIGUAL Tipoasignacion PUNTOCOMA 
-;
-
-Tipoasignacion: Tipo
-|Operacionmate 
-;
-
-Operacionmate: 
-Tiponumvar Operador 
-;
-
-Operador: Simboperacion Tiponumvar Operador 
-|Simboperacion Tiponumvar 
-;
-
-Simboperacion: SUMA
-|RESTA
-|MULTIPLICACION
-|DIVISION 
-;
-
-Declaracion: Tipo N_VAR PUNTOCOMA 
-;
-
-Iteracion:
-DESDE Tiponumvar HASTA Tiponumvar Operadorit LLAVEI Bloquecodigo LLAVEF 
-;
-
-Operadorit: Sumait
-|Restait 
-;
-
-Sumait: 
-SUMA SUMA 
-;
-
-Restait: 
-RESTA RESTA
-;
-
-Tipo: TIPONUM
-|TIPOBOOL
-|TIPOCAR
-|TIPOTEXTO 
-;
-
-Condicion:
-Tipovarios Comparacion 
-;
-
-Comparacion: Simbolocomparacion Tipovarios Oplog Condicion 
-|Simbolocomparacion Tipovarios 
-;
-
-Tipovarios: CARACTER
-|NUMERO
-|TEXTO
-|VERDADERO
-|FALSO
-|N_VAR 
-;
-
-Oplog: Y
-;
-
-Tiponumvar: NUMERO
-|N_VAR 
-;
-
-Simbolocomparacion: SMAYOR
-|SMENOR
-|SMAYORIGUAL
-|SMENORIGUAL
-|DIFERENTE
-|SIGUAL 
+Simbolocomparacion: SMAYOR {$$ = $1;}
+|SMENOR {$$ = $1;}
+|SMAYORIGUAL {$$ = $1;}
+|SMENORIGUAL {$$ = $1;}
+|DIFERENTE {$$ = $1;}
+|SIGUAL {$$ = $1;}
 ;
 
 %%
@@ -244,14 +103,16 @@ int main(int, char**) {
 	}
 	// set flex to read from it instead of defaulting to STDIN:
 	yyin = myfile;
+	//printf(myfile);
 	// parse through the input until there is no more:
 	do {
 		yyparse();
-	} while (!feof(yyin));
+		} while (!feof(yyin));
+	
 	
 }
 void yyerror(const char *s) {
-	printf("Error de parsing");
+	printf("Error de parsing: %s", s);
 	exit(-1);
 }
 // Comandos que estoy corriendo:
