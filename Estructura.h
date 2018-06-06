@@ -30,19 +30,15 @@ public:
 
     };
 
-    void setPosicionInicial(int posI)
+    void setPosicion(int posI,int posF)
     {
         posicionInicial = posI;
+        posicionFinal = posF;
     }
 
     int getPosicionInicial()
     {
         return posicionInicial;
-    }
-
-    void setPosicionFinal(int posF)
-    {
-        posicionFinal = posF;
     }
 
     int getPosicionFinal()
@@ -56,7 +52,7 @@ public:
     }
 
 private:
-    queue<T> pila;
+ ///   queue<T> pila;
     int posicionInicial;
     int posicionFinal;
     string tipo;
@@ -70,10 +66,10 @@ public:
 
     Estructura()
     {
-        numEntradas = 15; //15 posibles reglas en la gram·tica
+        numEntradas = 15; //15 posibles reglas en la gram√°tica
         arreglo.resize(numEntradas);
     };
-    // Especifica n˙mero de reglas en la gram·tica y las coloca en el arreglo
+    // Especifica n√∫mero de reglas en la gram√°tica y las coloca en el arreglo
 
     ~Estructura()// Destructor
     {
@@ -83,9 +79,9 @@ public:
 
 
 
-    T* search(const T& token,int pos) //token especÌfico en la lista de una regla especÌfica
+    T* search(const T& token,int pos) //token espec√≠fico en la lista de una regla espec√≠fica
     {
-        typename list<T>::iterator it; //para accesar a la posiciÛn del arreglo correspondiente
+        typename list<T>::iterator it; //para accesar a la posici√≥n del arreglo correspondiente
         it = arreglo[pos].begin(); //me posiciono en el primer elemento de la lista
 
         while(it != arreglo[pos].end() && *it != token) //busco en cada nodo de la lista correspondiente
@@ -100,7 +96,7 @@ public:
             std::cout<< "token encontrado " << *it << endl;
             return &*it;
         }
-        else //si se llegÛ al final de la lista y ninguno es el token
+        else //si se lleg√≥ al final de la lista y ninguno es el token
         {
             std::cout<< "token NO encontrado "  << endl;
             return NULL;
@@ -129,7 +125,7 @@ public:
 
 private:
     int numEntradas;
-    // Número de entradas en el arreglo
+    // N≈ìmero de entradas en el arreglo
     vector<list<T> > arreglo;
     // El arreglo es un vector de listas de STL
 };
