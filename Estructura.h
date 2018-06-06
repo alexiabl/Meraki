@@ -122,7 +122,7 @@ public:
         while (!pila.empty())
         {
             PilaToken obj = pila.front();
-            cout << "tipo regla: " << obj.tipo << endl;
+            cout << "tipo regla: " << reglas[obj.tipo] << endl;
             cout << "posI: " << obj.posicionInicial << endl;
             cout << "posF: " << obj.posicionFinal << endl;
             pila.pop();
