@@ -135,5 +135,8 @@ private:
     vector<list<T> > arreglo;
     // El arreglo es un vector de listas de STL
     queue<PilaToken> pila;
+    // Arreglo con la definicion de las posiciones del arreglo de tipos o reglas
+    vector<string> reglas = {"Asignacion", "Devuelva","Declaracion","Iteracion","Comparacion","Imprimir",
+    "Haga","Mientras","Si","Funcion","BloqueCodigo","BloqueMain","Main","Bloque","Meraki"};
 };
 #endif
