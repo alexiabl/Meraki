@@ -34,8 +34,6 @@ public:
         arreglo.clear(); //limpia el vector
     };
 
-
-
     int search(const T& token,int pos) //token específico en la lista de una regla específica
     {
         int contador=0;
