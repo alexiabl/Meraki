@@ -103,11 +103,10 @@ public:
     {
         int aparicion = encontrarContador(regla);
         PilaToken tok; //objeto para insertar a la pila, es uno por regla
-        tok.tipo = regla; //ocupamos una forma de traducir la posición a la regla que es, como guardar las reglas en un vector por aparte
-
+        tok.tipo = regla;
+        
         //le damos el token inicial y final de la regla que tenemos en la lista
         //y vemos dónde empieza y termina esa regla específica
-
         tok.posicionInicial = search(tokenI,regla,aparicion);
         tok.posicionFinal = search(tokenF,regla,aparicion);
         pila.push(tok); //insertar en la pila el objeto con la info
