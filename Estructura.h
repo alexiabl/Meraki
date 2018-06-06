@@ -91,7 +91,7 @@ public:
     void actualizarPila(const T& tokenI, const T& tokenF, int pos)
     {
         PilaToken tok; //objeto para insertar a la pila, es uno por regla
-        tok.tipo = pos; //ocupamos una forma de traducir la posición a la regla que es, como guardar las reglas en un vector por aparte
+        tok.tipo = pos; //eventual traducción?
 
         //por ahora dejo esto así, le damos el token inicial y final de la regla que tenemos en la lista
         //y vemos dónde empieza y termina esa regla específica
