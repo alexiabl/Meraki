@@ -23,10 +23,10 @@ public:
 
     Estructura()
     {
-        numEntradas = 15; //15 posibles reglas en la gram·tica
+        numEntradas = 15; //15 posibles reglas en la gram√°tica
         arreglo.resize(numEntradas);
     };
-    // Especifica n˙mero de reglas en la gram·tica y las coloca en el arreglo
+    // Especifica n√∫mero de reglas en la gram√°tica y las coloca en el arreglo
 
     ~Estructura()// Destructor
     {
@@ -36,10 +36,10 @@ public:
 
 
 
-    int search(const T& token,int pos) //token especÌfico en la lista de una regla especÌfica
+    int search(const T& token,int pos) //token espec√≠fico en la lista de una regla espec√≠fica
     {
         int contador=0;
-        typename list<T>::iterator it; //para accesar a la posiciÛn del arreglo correspondiente
+        typename list<T>::iterator it; //para accesar a la posici√≥n del arreglo correspondiente
         it = arreglo[pos].begin(); //me posiciono en el primer elemento de la lista
 
         while(it != arreglo[pos].end() && *it != token) //busco en cada nodo de la lista correspondiente
@@ -55,13 +55,13 @@ public:
             std::cout<< "token encontrado " << *it << endl;
             return contador;
         }
-        else //si se llegÛ al final de la lista y ninguno es el token
+        else //si se lleg√≥ al final de la lista y ninguno es el token
         {
             std::cout<< "token NO encontrado "  << endl;
             return -1;
         }
 
-    }; // Retorna un puntero a la llave o NULL si no se encuentra
+    }; // Retorna la posici√≥n de un token en la lista correspondiente
 
     void insert(const T& token, int pos)
     {
@@ -70,7 +70,7 @@ public:
         //sigue la parte de la pila
         PilaToken tok;
         actualizarPila(tok,token,pos);
-        tok.tipo = pos; //ocupamos una forma de traducir la posiciÛn a la regla que es, como guardar las reglas en un vector por aparte
+        tok.tipo = pos; //ocupamos una forma de traducir la posici√≥n a la regla que es, como guardar las reglas en un vector por aparte
         pila.push(tok);
     };
     // Inserta el elemento en la lista de una regla
@@ -96,7 +96,7 @@ public:
 
 private:
     int numEntradas;
-    // Número de entradas en el arreglo
+    // N≈ìmero de entradas en el arreglo
     vector<list<T> > arreglo;
     // El arreglo es un vector de listas de STL
     queue<PilaToken> pila;
