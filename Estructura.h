@@ -80,7 +80,7 @@ public:
         pila.push(tok); //insertar en la pila el objeto con la info
     }
 
-    void imprimir()
+    void imprimir() //solo imprime el vector de listas por ahora, falta hacer imprimir para la pila
     {
         for (int i = 0; i < numEntradas; i++) //acceso a cada una de las listas
         {
