@@ -99,18 +99,14 @@ public:
     };
     // Inserta el elemento en la lista de una regla
 
-    void actualizarPila(const T& tokenI, const T& tokenF, int regla)
+    void actualizarPila(int regla)
     {
-        int aparicion = encontrarContador(regla);
         PilaToken tok; //objeto para insertar a la pila, es uno por regla
         tok.tipo = regla;
-        
-        //le damos el token inicial y final de la regla que tenemos en la lista
-        //y vemos dónde empieza y termina esa regla específica
-        tok.posicionInicial = search(tokenI,regla,aparicion);
-        tok.posicionFinal = search(tokenF,regla,aparicion);
+        tok.posicionInicial = encontrarContador(regla);
+        tok.posicionFinal = aumentarContador(regla)-1;
         pila.push(tok); //insertar en la pila el objeto con la info
-        aumentarContador(regla);
+
     }
 
     int encontrarContador(int regla)
@@ -134,25 +130,55 @@ public:
         case 14: return Meraki;
         }
     }
-    void aumentarContador(int regla)
+    int aumentarContador(int regla)
     {
         switch(regla)
         {
-        case 0: Asignacion = arreglo[0].size();
-        case 1: Devuelva = arreglo[1].size();
-        case 2: Declaracion = arreglo[2].size();
-        case 3: Iteracion = arreglo[3].size();
-        case 4: Comparacion= arreglo[4].size();
-        case 5: Imprimir = arreglo[5].size();
-        case 6: Haga = arreglo[6].size();
-        case 7: Mientras = arreglo[7].size();
-        case 8: Si = arreglo[8].size();
-        case 9: Funcion = arreglo[9].size();
-        case 10: BloqueCodigo = arreglo[10].size();
-        case 11: BloqueMain = arreglo[11].size();
-        case 12: Main = arreglo[12].size();
-        case 13: Bloque = arreglo[13].size();
-        case 14: Meraki = arreglo[14].size();
+        case 0:
+            Asignacion = arreglo[0].size();
+            return Asignacion;
+        case 1:
+            Devuelva = arreglo[1].size();
+            return Devuelva;
+        case 2:
+            Declaracion = arreglo[2].size();
+            return Declaracion;
+        case 3:
+            Iteracion = arreglo[3].size();
+            return Iteracion;
+        case 4:
+            Comparacion= arreglo[4].size();
+            return Comparacion;
+        case 5:
+            Imprimir = arreglo[5].size();
+            return Imprimir;
+        case 6:
+            Haga = arreglo[6].size();
+            return Haga;
+        case 7:
+            Mientras = arreglo[7].size();
+            return Mientras;
+        case 8:
+            Si = arreglo[8].size();
+            return Si;
+        case 9:
+            Funcion = arreglo[9].size();
+            return Funcion;
+        case 10:
+            BloqueCodigo = arreglo[10].size();
+            return BloqueCodigo;
+        case 11:
+            BloqueMain = arreglo[11].size();
+            return BloqueMain;
+        case 12:
+            Main = arreglo[12].size();
+            return Main;
+        case 13:
+            Bloque = arreglo[13].size();
+            return Bloque;
+        case 14:
+            Meraki = arreglo[14].size();
+            return Meraki;
         }
     }
     void imprimir()
