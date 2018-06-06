@@ -65,20 +65,21 @@ public:
 
     void insert(const T& token, int pos)
     {
-        arreglo[pos].push_back(token); //se inserta al final de la lista
-
-        //sigue la parte de la pila
-        PilaToken tok;
-        actualizarPila(tok,token,pos);
-        tok.tipo = pos; //ocupamos una forma de traducir la posición a la regla que es, como guardar las reglas en un vector por aparte
-        pila.push(tok);
+        arreglo[pos].push_back(token); //se inserta al final de la lista      
     };
     // Inserta el elemento en la lista de una regla
 
-    void actualizarPila(PilaToken tok, const T& token, int pos)
+    void actualizarPila(const T& tokenI, const T& tokenF, int pos)
     {
-        tok.posicionInicial = search(token,pos);
-        tok.posicionFinal = search(token,pos);
+        PilaToken tok; //objeto para insertar a la pila, es uno por regla
+        tok.tipo = pos; //ocupamos una forma de traducir la posición a la regla que es, como guardar las reglas en un vector por aparte
+
+        //por ahora dejo esto así, le damos el token inicial y final de la regla que tenemos en la lista
+        //y vemos dónde empieza y termina esa regla específica
+
+        tok.posicionInicial = search(tokenI,pos);
+        tok.posicionFinal = search(tokenF,pos);
+        pila.push(tok); //insertar en la pila el objeto con la info
     }
 
     void imprimir()
