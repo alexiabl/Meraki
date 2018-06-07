@@ -45,7 +45,7 @@ public:
     int Meraki = 0;
 
     Estructura()
-    {
+    { std::cout << "Entró" << std::endl;
         numEntradas = 15; //15 posibles reglas en la gramática
         arreglo.resize(numEntradas);
     };
@@ -65,7 +65,7 @@ public:
     "token1" en la lista de LLamado (que es la lista 1).
     */
 
-    int search(const T& token,int pos,int aparicion) //token específico en la lista de una regla específica
+    int search(T token,int pos,int aparicion) //token específico en la lista de una regla específica
     {
         typename list<T>::iterator iter;
 
@@ -93,9 +93,10 @@ public:
 
     }; // Retorna un puntero a la llave o NULL si no se encuentra
 
-    void insert(const T& token, int pos)
-    {
+    void insert(T token, int pos)
+    { std::cout << "Entró" << std::endl;
         arreglo[pos].push_back(token); //se inserta al final de la lista
+		
     };
     // Inserta el elemento en la lista de una regla
 
@@ -188,7 +189,12 @@ public:
             std::cout << "lista #" << i << ": ";
             for (typename list<T>::iterator it2 = arreglo[i].begin(); it2 != arreglo[i].end(); it2++)
             {
+				for (typename list<T>::iterator it3 = arreglo[i].begin(); it3 != arreglo[i].end(); it3++)
+            {
+				
                 std::cout << *it2 << " "; //recorrido individual de cada nodo de la lista
+            }
+               
             }
             std::cout << std::endl;
         }

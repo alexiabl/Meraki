@@ -101,19 +101,19 @@ NUM 	[0-9]
 
 = { 
  	// printf ("%s es IGUAL\n", yytext);
-	yylval.texto = new std::string(yytext);
+	yylval.car = yytext[0];
 	return SIGUAL;
  }
 
 ">" { 
  	//printf ("%s es MAYOR\n", yytext);
-	yylval.texto = new std::string(yytext);
+	yylval.car = yytext[0];
 	return SMAYOR;
  }
 
 "<" { 
  	//printf ("%s es MENOR\n", yytext);
-	yylval.texto = new std::string(yytext);
+	yylval.car = yytext[0];
 	return SMENOR;
  }
 
@@ -125,31 +125,31 @@ NUM 	[0-9]
 
 "<=" { 
  	//printf ("%s es MENOR_IGUAL\n", yytext);
-	yylval.texto = new std::string(yytext);
+	yylval.texto =  new std::string(yytext);
 	return SMENORIGUAL;	
  }
 
  \+ { 
 	 //printf ("%s es SUMA\n", yytext);
-	 yylval.texto = new std::string(yytext);
+	 yylval.car = yytext[0];
 		 return SUMA;
  }
  
  \- {
  	 //printf ("%s es RESTA\n", yytext);
-	  yylval.texto = new std::string(yytext);
+	  yylval.car = yytext[0];
 		 return RESTA;
  }
  
  \* {
  	 //printf ("%s es MULTIPLICACION\n", yytext);
-	 yylval.texto = new std::string(yytext);
+	 yylval.car = yytext[0];
 		 return MULTIPLICACION;
  }
  
  \/ {
  	 //printf ("%s es DIVISION\n", yytext);
-	 yylval.texto = new std::string(yytext);
+	 yylval.car = yytext[0];
 	return DIVISION;
  }
 
@@ -165,49 +165,49 @@ NUM 	[0-9]
 		return DIFERENTE;
 	}
 "y" {
-	yylval.texto = new std::string(yytext);
+	yylval.texto = new std::string(yytext,yyleng);
 	return Y;
 }
 "o" {
-	yylval.texto= new std::string(yytext);
+	yylval.texto = new std::string(yytext,yyleng);
 	return O;
 }
 
 
 \. { 
  		//printf ("%s es PUNTO\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return PUNTO;
 		
  	}
 
 \; { 
  		//printf ("%s es PUNTOCOMA\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return PUNTOCOMA;
  	}
 
 \( { 
  		//printf ("%s es PI\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return PI;
  	}
 
 \) { 
  		//printf ("%s es PARENTESISF\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return PF;
  	}
 
 \{ { 
  		//printf ("%s es LLAVEI\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return LLAVEI;
  	}
 
 \} { 
  		//printf ("%s es LLAVEF\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return LLAVEF;
  	}
 
@@ -258,13 +258,13 @@ NUM 	[0-9]
 
 -?[0-9]+ { 
  		// printf ("%s es NUMERO\n", yytext);
-		  yylval.texto = new std::string(yytext);
+		  yylval.numero = atoi(yytext);
 		 return NUMERO;
  	}
 
 '[^']' { 
  		//printf ("%s es CARACTER\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return CARACTER;
  	}
 .|\n		ECHO;

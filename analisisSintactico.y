@@ -1,10 +1,10 @@
 %{
 #include <stdio.h>
-#include <list>
+//#include <list>
 #include <stack>
 #include <string>
-//#include "Estructura.h"
-//Estructura< std::list<std::string> > e;
+#include "Estructura.h"
+Estructura< std::list<std::string*>* > e;
 
 using namespace std;
 // stuff from flex that bison needs to know about:
@@ -88,34 +88,101 @@ void yyerror(const char *s);
 %type<lista> Bloquecodigo
 %type<lista> Indicacion
 %%
-Meraki: Si Devuelva Mientras Iteracion
-
-Bloquecodigo:  Indicacion
- |Bloquecodigo Indicacion
+Meraki: Funciones Main {$$ = new std::list<std::string*>;
+		   $$->insert($$->end(),$1->begin(),$1->end());
+		   $$->insert($$->end(),$2->begin(),$2->end());
+		  }
  ;
-Indicacion: Si
-|Mientras
-|Haga
-|Imprimir 
-|Devuelva
-|Declaracion
-|Asignacion
-|Iteracion 
-;
+
+Funciones: Funcion Funciones {$$ = new std::list<std::string*>;
+							  $$->insert($$->end(),$1->begin(),$1->end());
+							  $$->insert($$->end(),$2->begin(),$2->end());
+							  e.insert(&$$,9); e.actualizarPila(9);
+							  }
+ |Funcion {$$ = new std::list<std::string*>;
+		   $$->insert($$->end(),$1->begin(),$1->end());
+		   e.insert(&$$,9); e.actualizarPila(9);
+		  }
+ ;
+
+Main:
+MAIN PI Param PF LLAVEI Bloquemain LLAVEF {$$ = new std::list<std::string*>;
+										   $$->push_back($1);
+										   $$->insert($$->end(),$3->begin(),$3->end());
+										   $$->insert($$->end(),$6->begin(),$6->end());
+										   e.insert(&$$,12); e.actualizarPila(12);
+										  }
+ ;
+
+Bloquemain: Bloquecodigo Llamado {$$ = new std::list<std::string*>;
+							      $$->insert($$->end(),$1->begin(),$1->end());
+						          $$->insert($$->end(),$2->begin(),$2->end());
+								  e.insert(&$$,11); e.actualizarPila(11);
+						         }
+|Llamado {$$ = new std::list<std::string*>;
+		  $$->insert($$->end(),$1->begin(),$1->end());
+		  }
+ ;
  
+Llamado:
+ N_VAR PI Param PF PUNTOCOMA {$$ = new std::list<std::string*>;
+						      $$->push_back($1);
+						      $$->insert($$->end(),$3->begin(),$3->end());
+						     }
+ ;
+ 
+Bloquecodigo:  Indicacion {$$ = $1;
+						   e.insert(&$$,9); 
+						   e.actualizarPila(9);}
+						   
+ |Bloquecodigo Indicacion {$$ = new std::list<std::string*>;
+						   $$->push_back($1);
+						   $$->push_back($2);
+						   e.insert(&$$,10); 
+						   e.actualizarPila(10);
+						   }
+ ;
+ 
+Indicacion: Si {$$ = $1;e.insert(&$1,8); e.actualizarPila(8);}
+|Mientras {$$ = $1; e.insert(&$1,7); e.actualizarPila(7);}
+|Haga {$$ = $1; e.insert(&$1,6); e.actualizarPila(6);}
+|Imprimir {$$ = $1; e.insert(&$1,5); e.actualizarPila(5);}
+|Devuelva {$$ = $1; e.insert(&$1,1); e.actualizarPila(1);}
+|Declaracion {$$ = $1; e.insert(&$1,2); e.actualizarPila(2);}
+|Asignacion {$$ = $1; e.insert(&$1,0); e.actualizarPila(0);}
+|Iteracion {$$ = $1; e.insert(&$1,3); e.actualizarPila(3);}
+;
+
+Funcion: 
+Tipo N_VAR PI Param PF LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<std::string*>;
+												   $$->push_back($1);
+												   $$->push_back($2);
+												   $$->insert($$->end(),$4->begin(),$4->end());
+												   $$->insert($$->end(),$6->begin(),$6->end());
+												   }
+;
+
+Param: /* empty */ 
+|Tipo N_VAR Param {$$ = new std::list<std::string*>;
+				   $$->push_back($1);
+				   $$->push_back($2);
+				   $$->insert($$->end(),$3->begin(),$3->end());
+				   }
+;
+
 Si:
-SI Condicion LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<std::string*>;
+SI PI Condicion PF LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<std::string*>;
 									     $$->push_back($1);
-										 $$->insert($$->end(),$2->begin(),$2->end());
-										 $$->insert($$->end(),$4->begin(),$4->end());
+										 $$->insert($$->end(),$3->begin(),$3->end());
+										 $$->insert($$->end(),$6->begin(),$6->end());
 									    }
 ;
 
 Mientras: 
-MIENTRAS Condicion LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<std::string*>;
+MIENTRAS PI Condicion PF LLAVEI Bloquecodigo LLAVEF {$$ = new std::list<std::string*>;
 											   $$->push_back($1);
-											   $$->insert($$->end(),$2->begin(),$2->end());
-											   $$->insert($$->end(),$4->begin(),$4->end());
+											   $$->insert($$->end(),$3->begin(),$3->end());
+											   $$->insert($$->end(),$6->begin(),$6->end());
 											  }
 ;
 
@@ -149,6 +216,8 @@ Devuelva:
 DEVUELVA Tipovarios PUNTOCOMA {$$ = new std::list<std::string*>;
 							   $$->push_back($1);
 							   $$->push_back($2);
+							   e.insert($1,1);
+							   e.insert($2,1)
 							   }
 ;											
 
@@ -274,7 +343,13 @@ int main(int, char**) {
 	do {
 		yyparse();
 		} while (!feof(yyin));
-	
+	std::list<std::string*>*p;
+	//string st = "Prueba";
+	//string* stptr = new string();
+	//getline(st,*stptr);
+	//p->push_back(stptr);
+	//e.insert(p,8); e.actualizarPila(8);
+	e.imprimir();
 	
 }
 void yyerror(const char *s) {
