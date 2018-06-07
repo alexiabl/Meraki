@@ -91,9 +91,9 @@ public:
             return -1;
         }
 
-    }; // Retorna un puntero a la llave o NULL si no se encuentra
+    }; 
 
-    void insert(list<string> &token, int pos)
+    void insert(list<string> **token, int pos)
     {
         for (typename list<string>::iterator it2 = token.begin(); it2 != token.end(); it2++)
             {
