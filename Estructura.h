@@ -21,7 +21,7 @@ class Estructura
 public:
     int numEntradas;
     // Nœmero de entradas en el arreglo
-    vector<list<T> > arreglo;
+    vector<list<string> > arreglo;
     // El arreglo es un vector de listas de STL
     queue<PilaToken> pila;
     string reglas [15] = {"Asignacion", "Devuelva","Declaracion","Iteracion","Comparacion","Imprimir",
@@ -45,7 +45,7 @@ public:
     int Meraki = 0;
 
     Estructura()
-    { std::cout << "Entró" << std::endl;
+    {
         numEntradas = 15; //15 posibles reglas en la gramática
         arreglo.resize(numEntradas);
     };
@@ -93,10 +93,14 @@ public:
 
     }; // Retorna un puntero a la llave o NULL si no se encuentra
 
-    void insert(T token, int pos)
-    { std::cout << "Entró" << std::endl;
-        arreglo[pos].push_back(token); //se inserta al final de la lista
-		
+    void insert(list<string> &token, int pos)
+    {
+        for (typename list<string>::iterator it2 = token.begin(); it2 != token.end(); it2++)
+            {
+                string tok = *it2;
+                arreglo[pos].push_back(tok); //se inserta al final de la lista
+            }
+
     };
     // Inserta el elemento en la lista de una regla
 
@@ -187,14 +191,9 @@ public:
         for (int i = 0; i < numEntradas; i++) //acceso a cada una de las listas
         {
             std::cout << "lista #" << i << ": ";
-            for (typename list<T>::iterator it2 = arreglo[i].begin(); it2 != arreglo[i].end(); it2++)
+            for (typename list<string>::iterator it2 = arreglo[i].begin(); it2 != arreglo[i].end(); it2++)
             {
-				for (typename list<T>::iterator it3 = arreglo[i].begin(); it3 != arreglo[i].end(); it3++)
-            {
-				
                 std::cout << *it2 << " "; //recorrido individual de cada nodo de la lista
-            }
-               
             }
             std::cout << std::endl;
         }
