@@ -88,17 +88,17 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 18 "analisisSintactico.y"
+#line 15 "analisisSintacticoC.y"
 
 	std::string* texto;
 	char car;
 	int numero;
-	std::list<std::string*> *lista;
+	std::list<std::string> *lista;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 102 "analisisSintactico.tab.h"
+#line 102 "analisisSintacticoC.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

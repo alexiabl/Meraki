@@ -928,7 +928,7 @@ YY_RULE_SETUP
 #line 126 "merakiTokens.l"
 { 
  	//printf ("%s es MENOR_IGUAL\n", yytext);
-	yylval.texto = new std::string(yytext);
+	yylval.texto =  new std::string(yytext);
 	return SMENORIGUAL;	
  }
 	YY_BREAK
@@ -990,7 +990,7 @@ case 23:
 YY_RULE_SETUP
 #line 167 "merakiTokens.l"
 {
-	yylval.car = yytext[0];
+	yylval.texto = new std::string(yytext,yyleng);
 	return Y;
 }
 	YY_BREAK
@@ -998,7 +998,7 @@ case 24:
 YY_RULE_SETUP
 #line 171 "merakiTokens.l"
 {
-	yylval.car= yytext[0];
+	yylval.texto = new std::string(yytext,yyleng);
 	return O;
 }
 	YY_BREAK
@@ -1140,7 +1140,7 @@ YY_RULE_SETUP
 #line 265 "merakiTokens.l"
 { 
  		//printf ("%s es CARACTER\n", yytext);
-		yylval.texto = new std::string(yytext);
+		yylval.car = yytext[0];
 		return CARACTER;
  	}
 	YY_BREAK

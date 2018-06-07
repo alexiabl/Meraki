@@ -3,8 +3,8 @@
 #include <list>
 #include <stack>
 #include <string>
-#include "Estructura.h"
-Estructura<string> e;
+//#include "Estructura.h"
+//Estructura< std::list<std::string> > e;
 
 using namespace std;
 // stuff from flex that bison needs to know about:
@@ -19,7 +19,7 @@ void yyerror(const char *s);
 	std::string* texto;
 	char car;
 	int numero;
-	std::list<std::string> *lista;
+	std::list<std::string*> *lista;
 }
 
 %token <texto> RESTA
@@ -62,35 +62,23 @@ void yyerror(const char *s);
 %token <texto> O
 %token <texto> MAIN
 
-%type<texto> Oplog
-%type<texto> Simbolocomparacion
-%type<texto> Tipovarios
-%type<texto> Tiponumvar
-%%
 
-Meraki: Tipovarios Oplog Tiponumvar Simbolocomparacion { cout << "Tenemos " << $1<<" " << $2<<" " <<$3<<" "<<$4<< endl; }
-Tipovarios: CARACTER {$$ = $1;}
-|NUMERO {$$ = $1;}
-|TEXTO {$$ = $1;}
-|VERDADERO {$$ = $1;}
-|FALSO {$$ = $1;}
-|N_VAR {$$ = $1;}
+%type<texto> Oplog
+%type<lista> Condicion
+
+
+%%
+Condicion:
+Oplog Oplog {$$ = new std::list<std::string*>;
+			 $$->push_back($1);
+			 $$->push_back($2);
+			 printf("C: %s ",$$->front());
+			}
 ;
 
 Oplog: O {$$ = $1;}
-|Y {$$ = $1;};
+|Y {$$ = $1;}
 
-Tiponumvar: NUMERO {$$ = $1;}
-|N_VAR {$$ = $1;}
-;
-
-Simbolocomparacion: SMAYOR {$$ = $1;}
-|SMENOR {$$ = $1;}
-|SMAYORIGUAL {$$ = $1;}
-|SMENORIGUAL {$$ = $1;}
-|DIFERENTE {$$ = $1;}
-|SIGUAL {$$ = $1;}
-;
 
 %%
 int main(int, char**) {
