@@ -1,1 +1,4 @@
-y y 
+si ana > 3 {imprima ( ana );}
+devuelva ana;
+mientras ana > 6 {haga { car vin;} mientras (5 > 6)}
+desde ana hasta 6 ++ {numero lu = 3 * 6;}
