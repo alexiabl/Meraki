@@ -19,7 +19,7 @@ class Estructura
 {
 public:
     int numEntradas;
-    // Nœmero de entradas en el arreglo
+    // NÅ“mero de entradas en el arreglo
     vector<list<string*> > arreglo;
     // El arreglo es un vector de listas de STL
     queue<PilaToken> pila;
@@ -45,10 +45,10 @@ public:
 
     Estructura()
     {
-        numEntradas = 15; //15 posibles reglas en la gramática
+        numEntradas = 15; //15 posibles reglas en la gramÃ¡tica
         arreglo.resize(numEntradas);
     };
-    // Especifica número de reglas en la gramática y las coloca en el arreglo
+    // Especifica nÃºmero de reglas en la gramÃ¡tica y las coloca en el arreglo
 
     ~Estructura()// Destructor
     {
@@ -59,17 +59,17 @@ public:
     /* NOTA: como es un vector de listas, C++ no permite realizar estas inserciones
     (los nombres de las reglas) en el vector como tal, sin embargo, como nosotros vamos
     a insertar los tokens manualmente dentro de las listas que corresponden a cada regla no
-    hace falta. Esto significa que la lista en la posición 0 del vector corresponde a la gramática
-    de main y así sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar
+    hace falta. Esto significa que la lista en la posiciÃ³n 0 del vector corresponde a la gramÃ¡tica
+    de main y asÃ­ sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar
     "token1" en la lista de LLamado (que es la lista 1).
     */
 
-    int search(string token,int pos,int aparicion) //token específico en la lista de una regla específica
+    int search(string token,int pos,int aparicion) //token especÃ­fico en la lista de una regla especÃ­fica
     {
         typename list<string*>::iterator iter;
 
         iter = arreglo[pos].begin(); //me posiciono en el primer elemento de la lista
-        if(aparicion!=0) std::advance(iter,aparicion); //track de última aparición de la regla en la misma lista
+        if(aparicion!=0) std::advance(iter,aparicion); //track de Ãºltima apariciÃ³n de la regla en la misma lista
 
         while(iter != arreglo[pos].end() && **iter != token) //busco en cada nodo de la lista correspondiente
         {
@@ -84,7 +84,7 @@ public:
             // std::cout<< "token encontrado " << *it << endl;
             return aparicion;
         }
-        else //si se llegó al final de la lista y ninguno es el token
+        else //si se llegÃ³ al final de la lista y ninguno es el token
         {
             //  std::cout<< "token NO encontrado "  << endl;
             return -1;
@@ -199,7 +199,7 @@ public:
     {
         for (int i = 0; i < numEntradas; i++) //acceso a cada una de las listas
         {
-            std::cout << "lista #" << i << ": ";
+            std::cout << "lista " << reglas[i] << ": ";
             for (typename list<string*>::iterator it2 = arreglo[i].begin(); it2 != arreglo[i].end(); it2++)
             {
                 std::cout << **it2 << " "; //recorrido individual de cada nodo de la lista
