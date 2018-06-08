@@ -93,14 +93,9 @@ public:
 
     }; 
 
-    void insert(list<string> **token, int pos)
+    void insert(list<string> token, int pos)
     {
-        for (typename list<string>::iterator it2 = token.begin(); it2 != token.end(); it2++)
-            {
-                string tok = *it2;
-                arreglo[pos].push_back(tok); //se inserta al final de la lista
-            }
-
+                arreglo[pos].push_back(token); //se inserta al final de la lista
     };
     // Inserta el elemento en la lista de una regla
 
