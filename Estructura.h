@@ -93,7 +93,7 @@ public:
 
     }; 
 
-    void insert(list<string> token, int pos)
+    void insert(string token, int pos)
     {
                 arreglo[pos].push_back(token); //se inserta al final de la lista
     };
