@@ -15,13 +15,12 @@ struct PilaToken
     int tipo;
 };
 
-template <typename T>
 class Estructura
 {
 public:
     int numEntradas;
-    // NÅ“mero de entradas en el arreglo
-    vector<list<string> > arreglo;
+    // Nœmero de entradas en el arreglo
+    vector<list<string*> > arreglo;
     // El arreglo es un vector de listas de STL
     queue<PilaToken> pila;
     string reglas [15] = {"Asignacion", "Devuelva","Declaracion","Iteracion","Comparacion","Imprimir",
@@ -31,13 +30,13 @@ public:
     int Asignacion = 0;
     int Devuelva  = 0;
     int Declaracion  = 0;
-    int Iteracion  = 0;
-    int Comparacion  = 0;
+    int Iteracion = 0;
+    int Comparacion = 0;
     int Imprimir  = 0;
-    int Haga  = 0;
-    int Mientras  = 0;
-    int Si  = 0;
-    int Funcion  = 0;
+    int Haga = 0;
+    int Mientras = 0;
+    int Si = 0;
+    int Funcion = 0;
     int BloqueCodigo = 0;
     int BloqueMain = 0;
     int Main = 0;
@@ -46,10 +45,10 @@ public:
 
     Estructura()
     {
-        numEntradas = 15; //15 posibles reglas en la gramÃ¡tica
+        numEntradas = 15; //15 posibles reglas en la gramática
         arreglo.resize(numEntradas);
     };
-    // Especifica nÃºmero de reglas en la gramÃ¡tica y las coloca en el arreglo
+    // Especifica número de reglas en la gramática y las coloca en el arreglo
 
     ~Estructura()// Destructor
     {
@@ -60,19 +59,19 @@ public:
     /* NOTA: como es un vector de listas, C++ no permite realizar estas inserciones
     (los nombres de las reglas) en el vector como tal, sin embargo, como nosotros vamos
     a insertar los tokens manualmente dentro de las listas que corresponden a cada regla no
-    hace falta. Esto significa que la lista en la posiciÃ³n 0 del vector corresponde a la gramÃ¡tica
-    de main y asÃ­ sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar
+    hace falta. Esto significa que la lista en la posición 0 del vector corresponde a la gramática
+    de main y así sucesivamente. Sabiendo esto haremos insert("token1",1) para insertar
     "token1" en la lista de LLamado (que es la lista 1).
     */
 
-    int search(T token,int pos,int aparicion) //token especÃ­fico en la lista de una regla especÃ­fica
+    int search(string token,int pos,int aparicion) //token específico en la lista de una regla específica
     {
-        typename list<T>::iterator iter;
+        typename list<string*>::iterator iter;
 
         iter = arreglo[pos].begin(); //me posiciono en el primer elemento de la lista
-        if(aparicion!=0) std::advance(iter,aparicion); //track de Ãºltima apariciÃ³n de la regla en la misma lista
+        if(aparicion!=0) std::advance(iter,aparicion); //track de última aparición de la regla en la misma lista
 
-        while(iter != arreglo[pos].end() && *iter != token) //busco en cada nodo de la lista correspondiente
+        while(iter != arreglo[pos].end() && **iter != token) //busco en cada nodo de la lista correspondiente
         {
             //se detiene al llegar al final de la lista o encontrar token
             std::advance(iter,1); //cada que no se encuentre el token, avanzo un nodo
@@ -80,27 +79,22 @@ public:
         }
         //se llega al elemento deseado, si existe
 
-        if(*iter == token)
+        if(**iter == token)
         {
             // std::cout<< "token encontrado " << *it << endl;
             return aparicion;
         }
-        else //si se llegÃ³ al final de la lista y ninguno es el token
+        else //si se llegó al final de la lista y ninguno es el token
         {
             //  std::cout<< "token NO encontrado "  << endl;
             return -1;
         }
 
-    }; // Retorna un puntero a la llave o NULL si no se encuentra
+    };
 
-    void insert(list<string> &token, int pos)
+    void insert(string *token, int pos)
     {
-        for (typename list<string>::iterator it2 = token.begin(); it2 != token.end(); it2++)
-            {
-                string tok = *it2;
-                arreglo[pos].push_back(tok); //se inserta al final de la lista
-            }
-
+        arreglo[pos].push_back(token); //se inserta al final de la lista
     };
     // Inserta el elemento en la lista de una regla
 
@@ -118,21 +112,36 @@ public:
     {
         switch(regla)
         {
-        case 0: return Asignacion;
-        case 1: return Devuelva;
-        case 2: return Declaracion;
-        case 3: return Iteracion;
-        case 4: return Comparacion;
-        case 5: return Imprimir;
-        case 6: return Haga;
-        case 7: return Mientras;
-        case 8: return Si;
-        case 9: return Funcion;
-        case 10: return BloqueCodigo;
-        case 11: return BloqueMain;
-        case 12: return Main;
-        case 13: return Bloque;
-        case 14: return Meraki;
+        case 0:
+            return Asignacion;
+        case 1:
+            return Devuelva;
+        case 2:
+            return Declaracion;
+        case 3:
+            return Iteracion;
+        case 4:
+            return Comparacion;
+        case 5:
+            return Imprimir;
+        case 6:
+            return Haga;
+        case 7:
+            return Mientras;
+        case 8:
+            return Si;
+        case 9:
+            return Funcion;
+        case 10:
+            return BloqueCodigo;
+        case 11:
+            return BloqueMain;
+        case 12:
+            return Main;
+        case 13:
+            return Bloque;
+        case 14:
+            return Meraki;
         }
     }
     int aumentarContador(int regla)
@@ -191,9 +200,9 @@ public:
         for (int i = 0; i < numEntradas; i++) //acceso a cada una de las listas
         {
             std::cout << "lista #" << i << ": ";
-            for (typename list<string>::iterator it2 = arreglo[i].begin(); it2 != arreglo[i].end(); it2++)
+            for (typename list<string*>::iterator it2 = arreglo[i].begin(); it2 != arreglo[i].end(); it2++)
             {
-                std::cout << *it2 << " "; //recorrido individual de cada nodo de la lista
+                std::cout << **it2 << " "; //recorrido individual de cada nodo de la lista
             }
             std::cout << std::endl;
         }
@@ -209,5 +218,15 @@ public:
             pila.pop();
         }
     }
+
+/*    list<string> crearSublista()
+    {
+        list<string> lista = new list<string>;
+    }
+
+    void insertarSublista(list<string> sub, string s)
+    {
+        sub.push_back(s);
+    }*/
 };
 #endif
